@@ -2,17 +2,18 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type Note {
-    id: ID
-    content: String
-    author: String
+    id: ID!
+    content: String!
+    author: String!
   }
   type Query {
-    hello: String
     notes: [Note]
-    note(id: ID, author: String): Note
+    note(id: ID!): Note!
   }
   type Mutation {
-    addNote(content: String, author: String): Note
+    addNote(content: String!, author: String!): Note!
+    deleteNote(id: ID!): Boolean!
+    updateNote(id: ID!, content: String!): Note!
   }
 `;
 

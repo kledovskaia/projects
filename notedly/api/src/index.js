@@ -6,6 +6,7 @@ require('dotenv').config();
 const DB_HOST = process.env.DB_HOST;
 const port = process.env.PORT || 4000;
 
+const models = require('./models');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
@@ -15,7 +16,8 @@ db.connect(DB_HOST);
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: () => ({ models })
 });
 
 server.applyMiddleware({ app, path: '/api' });
