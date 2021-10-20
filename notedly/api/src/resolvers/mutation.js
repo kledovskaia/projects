@@ -1,10 +1,32 @@
 const Mutation = {
-  addNote: (_, { content, author }, { models }) => {
+  addNote: async (_, { content, author }, { models }) => {
     const newNote = {
       content,
       author
     };
-    return models.Note.create(newNote);
+    return await models.Note.create(newNote);
+  },
+  deleteNote: async (_, { id }, { models }) => {
+    try {
+      await models.Note.findOneAndDelete({ _id: id });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  },
+  updateNote: async (_, { id, content }, { models }) => {
+    return await models.Note.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          content
+        }
+      },
+      {
+        new: true
+      }
+    );
   }
 };
 
