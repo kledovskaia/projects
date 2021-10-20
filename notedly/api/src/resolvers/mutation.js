@@ -1,7 +1,5 @@
-const models = require('../models');
-
 const Mutation = {
-  addNote: (_, { content, author }) => {
+  addNote: (_, { content, author }, { models }) => {
     const newNote = {
       content,
       author
