@@ -1,4 +1,4 @@
-const Mutation = {
+module.exports = {
   addNote: async (_, { content, author }, { models }) => {
     const newNote = {
       content,
@@ -29,5 +29,3 @@ const Mutation = {
     );
   }
 };
-
-module.exports = Mutation;
