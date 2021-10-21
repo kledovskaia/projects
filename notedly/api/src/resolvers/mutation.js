@@ -8,9 +8,23 @@ require('dotenv').config();
 
 const gravatar = require('../util/gravatar');
 
-const normalize = string => string.replace(' ', '').toLowerCase();
+const normalize = (string = '') => string.replace(' ', '').toLowerCase();
 
 module.exports = {
+  signIn: async (_, { email, username, password }, { models }) => {
+    try {
+      const user = await models.User.findOne({
+        $or: [{ email: normalize(email) }, { username: normalize(username) }]
+      });
+      if (!user) throw new AuthenticationError('Error signing in');
+      const valid = await bcrypt.compare(password, user.password);
+      if (!valid) throw new AuthenticationError('Error signing in');
+      return jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    } catch (error) {
+      console.log(error);
+      throw new Error('Authorization failed');
+    }
+  },
   signUp: async (_, args, { models }) => {
     const email = normalize(args.email);
     const username = normalize(args.username);
