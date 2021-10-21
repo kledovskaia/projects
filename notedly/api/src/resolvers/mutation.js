@@ -17,11 +17,11 @@ const Mutation = {
   },
   updateNote: async (_, { id, content }, { models }) => {
     return await models.Note.findOneAndUpdate(
-      { _id: id },
       {
-        $set: {
-          content
-        }
+        _id: id
+      },
+      {
+        content
       },
       {
         new: true

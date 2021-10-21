@@ -5,7 +5,7 @@ module.exports = {
     // Используем обновленный парсер строки URL драйвера Mongo
     mongoose.set('useNewUrlParser', true);
     // Поставим findOneAndUpdate () вместо findAndModify ()
-    mongoose.set('useFindAndModify', false);
+    // mongoose.set('useFindAndModify', false);
     // Поставим createIndex () вместо sureIndex ()
     mongoose.set('useCreateIndex', true);
     // Используем новый механизм обнаружения и мониторинга серверов
