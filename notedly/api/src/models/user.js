@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Note } = require('.');
 
 const userSchema = new mongoose.Schema(
   {
