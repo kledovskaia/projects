@@ -2,6 +2,13 @@ const { gql } = require('apollo-server-express');
 
 module.exports = gql`
   scalar DateTime
+  type User {
+    id: ID!
+    username: String!
+    email: String!
+    avatar: String
+    notes: [Note!]!
+  }
   type Note {
     id: ID!
     content: String!
