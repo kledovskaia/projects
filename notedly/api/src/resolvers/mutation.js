@@ -1,4 +1,4 @@
-const Mutation = {
+module.exports = {
   addNote: async (_, { content, author }, { models }) => {
     const newNote = {
       content,
@@ -17,11 +17,11 @@ const Mutation = {
   },
   updateNote: async (_, { id, content }, { models }) => {
     return await models.Note.findOneAndUpdate(
-      { _id: id },
       {
-        $set: {
-          content
-        }
+        _id: id
+      },
+      {
+        content
       },
       {
         new: true
@@ -29,5 +29,3 @@ const Mutation = {
     );
   }
 };
-
-module.exports = Mutation;
