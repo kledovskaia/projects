@@ -7,6 +7,7 @@ module.exports = gql`
     username: String!
     email: String!
     avatar: String
+    favorites: [Note!]!
   }
   type Note {
     id: ID!
@@ -14,6 +15,8 @@ module.exports = gql`
     author: ID!
     createdAt: DateTime!
     updatedAt: DateTime!
+    favoriteCount: Int!
+    favoritedBy: [User!]!
   }
   type Query {
     notes: [Note]
@@ -23,6 +26,7 @@ module.exports = gql`
     users: [User!]!
   }
   type Mutation {
+    toggleFavorite(id: ID!): Note!
     addNote(content: String!): Note!
     deleteNote(id: ID!): Boolean!
     updateNote(id: ID!, content: String!): Note!
