@@ -58,11 +58,9 @@ module.exports = {
       throw new AuthenticationError('You must be signed in to delete a note');
 
     const note = await models.Note.findById(id);
-    if (note && note.author != user.id)
-      throw new ForbiddenError(
-        "You don't have the permissions to delete the note"
-      );
     if (!note) throw new ForbiddenError('Note not found');
+    if (note && String(note.author) !== user.id)
+      throw new ForbiddenError("You don't have permissions to delete the note");
 
     try {
       await note.remove();
@@ -72,7 +70,15 @@ module.exports = {
       return false;
     }
   },
-  updateNote: async (_, { id, content }, { models }) => {
+  updateNote: async (_, { id, content }, { models, user }) => {
+    if (!user)
+      throw new AuthenticationError('You must be signed in to update a note');
+
+    const note = await models.Note.findById(id);
+    if (!note) throw new ForbiddenError('Note not found');
+    if (note && String(note.author) !== user.id)
+      throw new ForbiddenError("You don't name permissions to update the note");
+
     return await models.Note.findOneAndUpdate(
       {
         _id: id
@@ -80,9 +86,7 @@ module.exports = {
       {
         content
       },
-      {
-        new: true
-      }
+      { new: true }
     );
   }
 };
