@@ -53,10 +53,15 @@ module.exports = {
       author: mongoose.Types.ObjectId(user.id)
     });
   },
-  deleteNote: async (_, { id }, { models }) => {
+  deleteNote: async (_, { id }, { models, user }) => {
+    if (!user)
+      throw new AuthenticationError('You must be signed in to delete a note');
+
     try {
-      await models.Note.findOneAndDelete({ _id: id });
-      return true;
+      return !!(await models.Note.findOneAndDelete({
+        author: user.id,
+        _id: id
+      }));
     } catch (error) {
       console.log(error);
       return false;
