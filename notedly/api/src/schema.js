@@ -16,10 +16,10 @@ module.exports = gql`
     updatedAt: DateTime!
   }
   type Query {
-    notes: [Note!]!
-    note(id: ID!): Note!
+    notes: [Note]
+    note(id: ID!): Note
     me: User
-    user(username: String!): User!
+    user(username: String!): User
     users: [User!]!
   }
   type Mutation {
