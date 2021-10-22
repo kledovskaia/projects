@@ -57,11 +57,16 @@ module.exports = {
     if (!user)
       throw new AuthenticationError('You must be signed in to delete a note');
 
+    const note = await models.Note.findById(id);
+    if (note && note.author != user.id)
+      throw new ForbiddenError(
+        "You don't have the permissions to delete the note"
+      );
+    if (!note) throw new ForbiddenError('Note not found');
+
     try {
-      return !!(await models.Note.findOneAndDelete({
-        author: user.id,
-        _id: id
-      }));
+      await note.remove();
+      return true;
     } catch (error) {
       console.log(error);
       return false;
