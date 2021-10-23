@@ -1,3 +1,7 @@
+import { useDocumentTitle } from "../../hooks/useDocumentTitle"
+
 export const MyNotes = () => {
-  return <div>MyNotes</div>
+  useDocumentTitle("My Notes")
+
+  return <div>My Notes</div>
 }
