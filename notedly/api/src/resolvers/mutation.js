@@ -11,6 +11,46 @@ const gravatar = require('../util/gravatar');
 const normalize = (string = '') => string.replace(' ', '').toLowerCase();
 
 module.exports = {
+  toggleFavorite: async (_, { id }, { models, user }) => {
+    if (!user)
+      throw new AuthenticationError(
+        'You must be signed in to perform this action'
+      );
+    const note = await models.Note.findById(id);
+    if (!note) throw new ForbiddenError("Note doesn't exist");
+
+    if (!note.favoritedBy.includes(user.id))
+      return await models.Note.findByIdAndUpdate(
+        id,
+        {
+          $push: {
+            favoritedBy: mongoose.Types.ObjectId(user.id)
+          },
+          $inc: {
+            favoriteCount: 1
+          }
+        },
+        {
+          new: true
+        }
+      );
+
+    if (note.favoritedBy.includes(user.id))
+      return await models.Note.findByIdAndUpdate(
+        id,
+        {
+          $pull: {
+            favoritedBy: mongoose.Types.ObjectId(user.id)
+          },
+          $inc: {
+            favoriteCount: -1
+          }
+        },
+        {
+          new: true
+        }
+      );
+  },
   signIn: async (_, { email, username, password }, { models }) => {
     try {
       const user = await models.User.findOne({
