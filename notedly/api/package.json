@@ -33,7 +33,7 @@
     "graphql-depth-limit": "1.1.0",
     "graphql-iso-date": "3.6.1",
     "graphql-validation-complexity": "0.2.4",
-    "helmet": "3.21.2",
+    "helmet": "^3.21.2",
     "jsonwebtoken": "8.5.1",
     "marked": "0.7.0",
     "md5": "2.2.1",

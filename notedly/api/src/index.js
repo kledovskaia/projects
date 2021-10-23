@@ -1,6 +1,8 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const jwt = require('jsonwebtoken');
+const helmet = require('helmet');
+const cors = require('cors');
 const db = require('./db');
 
 const getUser = token => {
@@ -23,6 +25,8 @@ const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
 const app = express();
+app.use(helmet());
+app.use(cors());
 
 db.connect(DB_HOST);
 
