@@ -22,8 +22,8 @@ require('dotenv').config();
 const DB_HOST = process.env.DB_HOST;
 const port = process.env.PORT || 4000;
 
-const models = require('./models');
 const typeDefs = require('./schema');
+const models = require('./models');
 const resolvers = require('./resolvers');
 
 const app = express();
