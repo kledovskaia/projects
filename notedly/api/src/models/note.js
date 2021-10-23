@@ -12,15 +12,14 @@ const noteSchema = new mongoose.Schema(
     },
     favoriteCount: {
       type: Number,
-      required: true,
       default: 0
     },
-    favoritedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      default: []
-    }
+    favoritedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     timestamps: true
