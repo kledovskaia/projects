@@ -1,29 +1,8 @@
-import { useQuery, gql } from "@apollo/client"
+import { useQuery } from "@apollo/client"
+import * as queries from "../helpers/queries"
 
-const schemas = {
-  GET_NOTES: gql`
-    query noteFeed($cursor: String) {
-      noteFeed(cursor: $cursor) {
-        cursor
-        hasNextPage
-        notes {
-          id
-          createdAt
-          content
-          favoriteCount
-          author {
-            username
-            id
-            avatar
-          }
-        }
-      }
-    }
-  `,
-}
-
-type TRequest = keyof typeof schemas
+type TRequest = keyof typeof queries
 
 export const useRequest = (type: TRequest) => {
-  return useQuery(schemas[type])
+  return useQuery(queries[type])
 }

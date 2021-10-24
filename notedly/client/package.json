@@ -11,6 +11,7 @@
     "@types/node": "^12.20.34",
     "@types/react": "^17.0.31",
     "@types/react-dom": "^17.0.10",
+    "dotenv": "^10.0.0",
     "graphql": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.1",
-    "@types/styled-components": "^5.1.15"
+    "@types/styled-components": "^5.1.15",
+    "graphql-request": "^1.8.2"
   }
 }
