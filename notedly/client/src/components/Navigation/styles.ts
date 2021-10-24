@@ -57,14 +57,14 @@ export const Logo = styled.img`
   position: absolute;
   z-index: 1;
   max-width: 3rem;
-  transition: opacity ease-in-out 0.1s;
+  transition: opacity 0.3s;
 `
 export const LogoAnimated = styled.img`
   position: absolute;
   opacity: 0;
   max-width: 3rem;
   background: #000;
-  transition: opacity ease-in-out 0.1s;
+  transition: opacity 0.3s;
 `
 export const Text = styled.span`
   position: relative;
