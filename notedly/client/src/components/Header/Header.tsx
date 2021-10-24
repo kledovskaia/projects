@@ -1,10 +1,10 @@
-import * as header from "./styles"
+import * as styles from "./styles"
 
 export const Header = () => {
   return (
-    <header.Container>
-      <header.Logo src="/images/logo.png" alt="Notedly" />
-      <header.Text>Notedly</header.Text>
-    </header.Container>
+    <styles.Container>
+      <styles.Logo src="/images/logo.png" alt="Notedly" />
+      <styles.Text>Notedly</styles.Text>
+    </styles.Container>
   )
 }

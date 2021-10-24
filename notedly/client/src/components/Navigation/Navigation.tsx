@@ -1,32 +1,32 @@
 import { NavLink } from "react-router-dom"
-import * as navigation from "./styles"
+import { Container, List, Logo, LogoAnimated, Text } from "./styles"
 
 export const Navigation = () => {
   return (
-    <navigation.Container>
-      <navigation.List>
+    <Container>
+      <List>
         <li>
           <NavLink exact to="/">
-            <navigation.Logo src="/images/home.svg" />
-            <navigation.LogoAnimated src="/images/home.gif" />
-            <navigation.Text>Home</navigation.Text>
+            <Logo src="/images/home.svg" />
+            <LogoAnimated src="/images/home.gif" />
+            <Text>Home</Text>
           </NavLink>
         </li>
         <li>
           <NavLink to="/my-notes">
-            <navigation.Logo src="/images/note.svg" />
-            <navigation.LogoAnimated src="/images/note.gif" />
-            <navigation.Text>My Notes</navigation.Text>
+            <Logo src="/images/note.svg" />
+            <LogoAnimated src="/images/note.gif" />
+            <Text>My Notes</Text>
           </NavLink>
         </li>
         <li>
           <NavLink to="/favorites">
-            <navigation.Logo src="/images/favorites.svg" />
-            <navigation.LogoAnimated src="/images/favorites.gif" />
-            <navigation.Text>Favorites</navigation.Text>
+            <Logo src="/images/favorites.svg" />
+            <LogoAnimated src="/images/favorites.gif" />
+            <Text>Favorites</Text>
           </NavLink>
         </li>
-      </navigation.List>
-    </navigation.Container>
+      </List>
+    </Container>
   )
 }
