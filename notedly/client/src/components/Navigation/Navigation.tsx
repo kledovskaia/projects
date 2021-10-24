@@ -1,19 +1,32 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { Container, List, Logo, LogoAnimated, Text } from "./styles"
 
 export const Navigation = () => {
   return (
-    <nav>
-      <ul>
+    <Container>
+      <List>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink exact to="/">
+            <Logo src="/images/home.svg" />
+            <LogoAnimated src="/images/home.gif" />
+            <Text>Home</Text>
+          </NavLink>
         </li>
         <li>
-          <Link to="/my-notes">My Notes</Link>
+          <NavLink to="/my-notes">
+            <Logo src="/images/note.svg" />
+            <LogoAnimated src="/images/note.gif" />
+            <Text>My Notes</Text>
+          </NavLink>
         </li>
         <li>
-          <Link to="/favorites">Favorites</Link>
+          <NavLink to="/favorites">
+            <Logo src="/images/favorites.svg" />
+            <LogoAnimated src="/images/favorites.gif" />
+            <Text>Favorites</Text>
+          </NavLink>
         </li>
-      </ul>
-    </nav>
+      </List>
+    </Container>
   )
 }

@@ -4,11 +4,22 @@ import "./index.css"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter as Router } from "react-router-dom"
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+
+const uri = process.env.API_URI || "http://localhost:4000/api"
+const cache = new InMemoryCache()
+const client = new ApolloClient({
+  uri,
+  cache,
+  connectToDevTools: true,
+})
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
