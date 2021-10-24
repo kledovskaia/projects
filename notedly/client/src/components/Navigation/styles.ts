@@ -15,8 +15,6 @@ export const List = styled.ul`
     padding: 1.5rem 2rem;
     text-decoration: none;
     color: inherit;
-    font-weight: 700;
-    font-style: italic;
 
     display: flex;
     align-items: center;
