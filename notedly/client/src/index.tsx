@@ -5,11 +5,23 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter as Router } from "react-router-dom"
 
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+
+const uri = process.env.API_URI
+const cache = new InMemoryCache()
+const client = new ApolloClient({
+  uri,
+  cache,
+  connectToDevTools: true,
+})
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <App />
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )

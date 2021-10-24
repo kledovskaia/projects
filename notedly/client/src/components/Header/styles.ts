@@ -13,6 +13,7 @@ export const Logo = styled.img`
 `
 
 export const Text = styled.h1`
+  cursor: default;
   padding: 0 0.5rem;
   font-weight: 400;
   color: #fff;
