@@ -1,19 +1,32 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import * as navigation from "./styles"
 
 export const Navigation = () => {
   return (
-    <nav>
-      <ul>
+    <navigation.Container>
+      <navigation.List>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink exact to="/">
+            <navigation.Logo src="/images/home.svg" />
+            <navigation.LogoAnimated src="/images/home.gif" />
+            <navigation.Text>Home</navigation.Text>
+          </NavLink>
         </li>
         <li>
-          <Link to="/my-notes">My Notes</Link>
+          <NavLink to="/my-notes">
+            <navigation.Logo src="/images/note.svg" />
+            <navigation.LogoAnimated src="/images/note.gif" />
+            <navigation.Text>My Notes</navigation.Text>
+          </NavLink>
         </li>
         <li>
-          <Link to="/favorites">Favorites</Link>
+          <NavLink to="/favorites">
+            <navigation.Logo src="/images/favorites.svg" />
+            <navigation.LogoAnimated src="/images/favorites.gif" />
+            <navigation.Text>Favorites</navigation.Text>
+          </NavLink>
         </li>
-      </ul>
-    </nav>
+      </navigation.List>
+    </navigation.Container>
   )
 }
