@@ -3,6 +3,7 @@ type TNote = {
   author: TUser
   content: string
   createdAt: string
+  updatedAt: string
   favoriteCount: number
   id: string
   favoritedBy?: TUser[]
