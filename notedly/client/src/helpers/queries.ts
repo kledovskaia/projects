@@ -8,6 +8,7 @@ export const GET_NOTES = gql`
       notes {
         id
         createdAt
+        updatedAt
         content
         favoriteCount
         author {
@@ -15,6 +16,23 @@ export const GET_NOTES = gql`
           id
           avatar
         }
+      }
+    }
+  }
+`
+
+export const GET_NOTE = gql`
+  query note($id: ID!) {
+    note(id: $id) {
+      id
+      createdAt
+      updatedAt
+      content
+      favoriteCount
+      author {
+        username
+        id
+        avatar
       }
     }
   }

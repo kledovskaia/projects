@@ -1,8 +1,8 @@
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
 import { useEffect } from "react"
 import { useRequest } from "../../hooks/useRequest"
-import { Note } from "../../components/Note/Note"
 import { Container } from "./styles"
+import { NoteFeed } from "../../components/NoteFeed/NoteFeed"
 
 export const Home = () => {
   const { data, loading, error } = useRequest<{
@@ -21,10 +21,7 @@ export const Home = () => {
 
   return (
     <Container>
-      {data &&
-        data.noteFeed.notes.map((note: TNote) => (
-          <Note key={note.id} note={note} />
-        ))}
+      {data && data.noteFeed && <NoteFeed notes={data.noteFeed.notes} />}
     </Container>
   )
 }
