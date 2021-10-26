@@ -1,6 +1,6 @@
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
 import { useEffect } from "react"
-import { useRequest } from "../../hooks/useRequest"
+import { useAppQuery } from "../../hooks/useAppQuery"
 import { Container } from "./styles"
 import { NoteFeed } from "../../components/NoteFeed/NoteFeed"
 
@@ -13,7 +13,8 @@ type TResponse = {
 }
 
 export const Home = () => {
-  const { data, loading, error, fetchMore } = useRequest<TResponse>("GET_NOTES")
+  const { data, loading, error, fetchMore } =
+    useAppQuery<TResponse>("GET_NOTES")
   useDocumentTitle("Home")
 
   useEffect(() => {

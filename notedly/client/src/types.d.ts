@@ -15,3 +15,8 @@ type TUser = {
   id: string
   username: string
 }
+
+type TForm = {
+  email: string
+  password: string
+}
