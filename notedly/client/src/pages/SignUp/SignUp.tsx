@@ -41,7 +41,7 @@ export const SignUp = () => {
 
   const [signUp, { loading, error }] = useAppMutation("SIGN_UP", {
     onCompleted: (data: { signUp: unknown }) => {
-      console.log(data.signUp)
+      localStorage.setItem("token", JSON.stringify(data.signUp))
     },
   })
 
