@@ -4,12 +4,30 @@ import "./index.css"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { BrowserRouter as Router } from "react-router-dom"
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  createHttpLink,
+  ApolloLink,
+} from "@apollo/client"
+import { setContext } from "apollo-link-context"
 
 const uri = process.env.API_URI || "http://localhost:4000/api"
 const cache = new InMemoryCache()
+
+const httpLink = createHttpLink({ uri })
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: localStorage.getItem("token") || "",
+    },
+  }
+})
+
 const client = new ApolloClient({
-  uri,
+  link: { ...authLink, ...httpLink } as ApolloLink,
   cache,
   connectToDevTools: true,
 })

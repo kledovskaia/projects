@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import { Note } from "../../components/Note/Note"
-import { useRequest } from "../../hooks/useRequest"
+import { useAppQuery } from "../../hooks/useAppQuery"
 
 export const NotePage = () => {
   const { id } = useParams<{ id: string }>()
-  const { data, loading, error } = useRequest<{ note: TNote }>("GET_NOTE", {
+  const { data, loading, error } = useAppQuery<{ note: TNote }>("GET_NOTE", {
     variables: { id },
   })
 
