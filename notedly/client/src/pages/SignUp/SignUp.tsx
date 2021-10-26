@@ -6,7 +6,8 @@ import { Error, Form, Input, Label } from "../../styles/form"
 import { Container } from "./styles"
 import { useAppMutation } from "../../hooks/useAppMutation"
 import { useHistory } from "react-router"
-import { IsLoggedInContext } from "../../context/IsLoggedIn"
+import { useApolloClient } from "@apollo/client"
+import { IS_LOGGED_IN } from "../../graphql/queries"
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Please enter a username"),
@@ -40,13 +41,18 @@ const formFields = [
 
 export const SignUp = () => {
   useDocumentTitle("Sign Up")
+  const client = useApolloClient()
   const history = useHistory()
-  const [, setIsLoggedIn] = useContext(IsLoggedInContext)
 
   const [signUp, { loading, error }] = useAppMutation("SIGN_UP", {
     onCompleted: (data: { signUp: unknown }) => {
       localStorage.setItem("token", JSON.stringify(data.signUp))
-      setIsLoggedIn(true)
+      client.writeQuery({
+        query: IS_LOGGED_IN,
+        data: {
+          isLoggedIn: true,
+        },
+      })
       history.push("/")
     },
   })

@@ -17,10 +17,6 @@ export const Home = () => {
     useAppQuery<TResponse>("GET_NOTES")
   useDocumentTitle("Home")
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
   const handleFetchMoreNotes = () => {
     fetchMore({
       variables: {

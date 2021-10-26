@@ -12,7 +12,6 @@ import {
   ApolloLink,
 } from "@apollo/client"
 import { setContext } from "apollo-link-context"
-import { IsLoggedInProvider } from "./context/IsLoggedIn"
 
 const uri = process.env.API_URI || "http://localhost:4000/api"
 const cache = new InMemoryCache()
@@ -29,7 +28,6 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: { ...authLink, ...httpLink } as ApolloLink,
-  resolvers: {},
   cache,
   connectToDevTools: true,
 })
@@ -38,9 +36,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
-        <IsLoggedInProvider>
-          <App />
-        </IsLoggedInProvider>
+        <App />
       </ApolloProvider>
     </Router>
   </React.StrictMode>,
