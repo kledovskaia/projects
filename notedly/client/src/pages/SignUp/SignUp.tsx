@@ -5,9 +5,6 @@ import * as yup from "yup"
 import { Error, Form, Input, Label } from "../../styles/form"
 import { Container } from "./styles"
 import { useAppMutation } from "../../hooks/useAppMutation"
-import { useHistory } from "react-router"
-import { useApolloClient } from "@apollo/client"
-import { IS_LOGGED_IN } from "../../graphql/queries"
 import { AuthContext } from "../../context/Auth"
 
 const validationSchema = yup.object().shape({
@@ -42,14 +39,10 @@ const formFields = [
 
 export const SignUp = () => {
   useDocumentTitle("Sign Up")
-  const history = useHistory()
   const { login } = useContext(AuthContext)
 
   const [signUp, { loading, error }] = useAppMutation("SIGN_UP", {
-    onCompleted: (data: { signUp: string }) => {
-      login(data.signUp)
-      history.push("/")
-    },
+    onCompleted: ({ signUp: token }: { signUp: string }) => login(token),
   })
 
   return (
