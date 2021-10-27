@@ -7,6 +7,7 @@ import { NotePage } from "./NotePage"
 import { SignIn } from "./SignIn"
 import { SignUp } from "./SignUp"
 import { NewNote } from "./NewNote"
+import { EditNote } from "./EditNote"
 
 export const Pages = () => {
   return (
@@ -17,6 +18,7 @@ export const Pages = () => {
       <ProtectedRoute path="/my-notes" component={MyNotes} />
       <ProtectedRoute path="/new" component={NewNote} />
       <Route path="/note/:id" component={NotePage} />
+      <Route path="/edit/:id" component={EditNote} />
       <Route path="/" component={Home} />
     </Switch>
   )

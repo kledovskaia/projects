@@ -1,5 +1,7 @@
 import { FC } from "react"
+import { Link } from "react-router-dom"
 import { stopBubbling } from "../../helpers/functions"
+import { useAppQuery } from "../../hooks/useAppQuery"
 import {
   AuthorContainer,
   AuthorName,
@@ -19,6 +21,8 @@ type Props = {
 }
 
 export const Note: FC<Props> = ({ note }) => {
+  const { data } = useAppQuery<{ me: TUser }>("GET_MY_INFO")
+
   return (
     <Container>
       <Header>
@@ -26,6 +30,9 @@ export const Note: FC<Props> = ({ note }) => {
           <AuthorPhoto src={note.author.avatar} alt={note.author.username} />
           <AuthorName>{note.author.username}</AuthorName>
         </AuthorContainer>
+        {data && note.author.id === data.me.id && (
+          <Link to={`/edit/${note.id}`}>Edit</Link>
+        )}
         <ToggleFavorite>
           <ToggleFavoriteIcon></ToggleFavoriteIcon>
         </ToggleFavorite>

@@ -85,3 +85,14 @@ export const GET_NOTE = gql`
     }
   }
 `
+
+export const GET_MY_INFO = gql`
+  query {
+    me {
+      id
+      username
+      email
+      avatar
+    }
+  }
+`

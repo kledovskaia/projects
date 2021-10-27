@@ -14,6 +14,8 @@ const Query = {
       .sort({ _id: -1 })
       .limit(limit + 1);
 
+    if (!notes.length) return { notes, cursor: null, hasNextPage };
+
     if (notes.length > limit) {
       hasNextPage = true;
       notes = notes.slice(0, -1);
