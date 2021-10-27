@@ -12,7 +12,7 @@ const protectedPaths = ["/my-notes", "/favorites"]
 export const AuthProvider: FC = ({ children }) => {
   const history = useHistory()
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(null!)
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {

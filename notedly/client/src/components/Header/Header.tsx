@@ -10,13 +10,17 @@ export const Header = () => {
     <Container>
       <Logo src="/images/logo.png" alt="Notedly" />
       <Text>Notedly</Text>
-      {!isLoggedIn && (
+      {isLoggedIn !== null && (
         <>
-          <Link to="/sign-in">SignIn</Link>
-          <Link to="/sign-up">SignUp</Link>
+          {!isLoggedIn && (
+            <>
+              <Link to="/sign-in">SignIn</Link>
+              <Link to="/sign-up">SignUp</Link>
+            </>
+          )}
+          {isLoggedIn && <LogOut onClick={logout}>LogOut</LogOut>}
         </>
       )}
-      {isLoggedIn && <LogOut onClick={logout}>LogOut</LogOut>}
     </Container>
   )
 }
