@@ -12,6 +12,7 @@ html {
 }
 
 body {
+  overflow-y: scroll;
   font-size: 1.6rem;
   background-color: #fefae0;
   color: #311600;
