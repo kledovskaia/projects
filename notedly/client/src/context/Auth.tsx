@@ -16,8 +16,9 @@ export const AuthProvider: FC = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!token && protectedPaths.includes(location.pathname)) history.push("/")
-  }, [token])
+    if (!isLoggedIn && protectedPaths.includes(location.pathname))
+      history.push("/")
+  }, [isLoggedIn])
 
   const logout = () => {
     localStorage.removeItem("token")
