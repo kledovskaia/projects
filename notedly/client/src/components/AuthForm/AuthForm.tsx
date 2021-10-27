@@ -10,6 +10,7 @@ type Props = {
   initialValues: { [key in string]: string }
   action: (values: any) => void
   validationSchema: any
+  formType: string
 }
 
 export const AuthForm: FC<Props> = ({
@@ -17,6 +18,7 @@ export const AuthForm: FC<Props> = ({
   action,
   validationSchema,
   formFields,
+  formType,
 }) => {
   return (
     <Container>
@@ -36,6 +38,7 @@ export const AuthForm: FC<Props> = ({
           /* and other goodies */
         }) => (
           <Form onSubmit={handleSubmit}>
+            <h2>{formType}</h2>
             {formFields.map((field) => (
               <Fragment key={field.label}>
                 <Label htmlFor={field.label}>{field.label}</Label>

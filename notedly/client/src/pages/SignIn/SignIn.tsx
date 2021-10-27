@@ -1,5 +1,4 @@
-import { Formik } from "formik"
-import { Fragment, useContext } from "react"
+import { useContext } from "react"
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
 import * as yup from "yup"
 import { useAppMutation } from "../../hooks/useAppMutation"
@@ -34,6 +33,7 @@ export const SignIn = () => {
 
   return (
     <AuthForm
+      formType="Sign In"
       initialValues={initialValues}
       action={(values: typeof initialValues) =>
         signIn({

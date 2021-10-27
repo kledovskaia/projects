@@ -45,6 +45,7 @@ export const SignUp = () => {
 
   return (
     <AuthForm
+      formType="Sign Up"
       initialValues={initialValues}
       action={(values: typeof initialValues) =>
         signUp({

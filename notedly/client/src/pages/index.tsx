@@ -10,18 +10,10 @@ import { SignUp } from "./SignUp"
 export const Pages = () => {
   return (
     <Switch>
-      <ProtectedRoute path="/sign-up">
-        <SignUp />
-      </ProtectedRoute>
-      <ProtectedRoute path="/sign-in">
-        <SignIn />
-      </ProtectedRoute>
-      <ProtectedRoute path="/favorites">
-        <Favorites />
-      </ProtectedRoute>
-      <ProtectedRoute path="/my-notes">
-        <MyNotes />
-      </ProtectedRoute>
+      <ProtectedRoute path="/sign-up" component={SignUp} />
+      <ProtectedRoute path="/sign-in" component={SignIn} />
+      <ProtectedRoute path="/favorites" component={Favorites} />
+      <ProtectedRoute path="/my-notes" component={MyNotes} />
       <Route path="/note/:id" component={NotePage} />
       <Route path="/" component={Home} />
     </Switch>
