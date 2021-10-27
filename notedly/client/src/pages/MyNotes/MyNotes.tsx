@@ -1,7 +1,15 @@
+import { NoteFeed } from "../../components/NoteFeed/NoteFeed"
+import { NoteGrid } from "../../components/NoteGrid/NoteGrid"
+import { useAppQuery } from "../../hooks/useAppQuery"
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
 
 export const MyNotes = () => {
   useDocumentTitle("My Notes")
+  const { data, loading, error } = useAppQuery<{
+    me: {
+      notes: TNote[]
+    }
+  }>("GET_MY_NOTES")
 
-  return <div>My Notes</div>
+  return <NoteGrid>{data && <NoteFeed notes={data.me.notes} />}</NoteGrid>
 }

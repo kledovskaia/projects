@@ -20,7 +20,7 @@ export const Header = () => {
           )}
           {isLoggedIn && (
             <>
-              <Link to="/new">New Note</Link>
+              <Link to="/new">New</Link>
               <LogOut onClick={logout}>LogOut</LogOut>
             </>
           )}
