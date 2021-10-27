@@ -1,11 +1,9 @@
-import { Formik } from "formik"
-import { Fragment, useContext } from "react"
+import { useContext } from "react"
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
 import * as yup from "yup"
-import { Error, Form, Input, Label } from "../../styles/form"
-import { Container } from "./styles"
 import { useAppMutation } from "../../hooks/useAppMutation"
 import { AuthContext } from "../../context/Auth"
+import { AuthForm } from "../../components/AuthForm/AuthForm"
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Please enter a username"),
@@ -23,7 +21,7 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 })
 
-const initialState = {
+const initialValues = {
   username: "",
   email: "",
   password: "",
@@ -46,48 +44,15 @@ export const SignUp = () => {
   })
 
   return (
-    <Container>
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={initialState}
-        onSubmit={(values) => {
-          signUp({
-            variables: { ...values },
-          })
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
-          <Form onSubmit={handleSubmit}>
-            {formFields.map((field) => (
-              <Fragment key={field.label}>
-                <Label htmlFor={field.label}>{field.label}</Label>
-                <Input
-                  id={field.label}
-                  type={field.type}
-                  name={field.label}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values[field.label]}
-                />
-                <Error>{touched[field.label] && errors[field.label]}</Error>
-              </Fragment>
-            ))}
-
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </Container>
+    <AuthForm
+      initialValues={initialValues}
+      action={(values: typeof initialValues) =>
+        signUp({
+          variables: { ...values },
+        })
+      }
+      validationSchema={validationSchema}
+      formFields={formFields}
+    />
   )
 }
