@@ -13,25 +13,27 @@ export const AuthProvider: FC = ({ children }) => {
   const history = useHistory()
   const location = useLocation()
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(null!)
-  const [token, setToken] = useState<string | null>(null)
+  const [token, setToken] = useState<string>(null!)
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"))
+    setToken(localStorage.getItem("token") || "")
   }, [])
 
   useEffect(() => {
+    if (token === null) return
     if (token) setIsLoggedIn(true)
     if (!token) setIsLoggedIn(false)
   }, [token])
 
   useEffect(() => {
+    if (isLoggedIn === null) return
     if (!isLoggedIn && protectedPaths.includes(location.pathname))
       history.push("/")
   }, [isLoggedIn])
 
   const logout = () => {
     localStorage.removeItem("token")
-    setToken(null)
+    setToken("")
   }
 
   const login = (token: string) => {
