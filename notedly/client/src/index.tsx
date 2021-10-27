@@ -12,6 +12,7 @@ import {
   ApolloLink,
 } from "@apollo/client"
 import { setContext } from "apollo-link-context"
+import { AuthProvider } from "./context/Auth"
 
 const uri = process.env.API_URI || "http://localhost:4000/api"
 const cache = new InMemoryCache()
@@ -36,7 +37,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ApolloProvider>
     </Router>
   </React.StrictMode>,

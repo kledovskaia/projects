@@ -8,6 +8,7 @@ import { useAppMutation } from "../../hooks/useAppMutation"
 import { useHistory } from "react-router"
 import { useApolloClient } from "@apollo/client"
 import { IS_LOGGED_IN } from "../../graphql/queries"
+import { AuthContext } from "../../context/Auth"
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Please enter a username"),
@@ -41,18 +42,12 @@ const formFields = [
 
 export const SignUp = () => {
   useDocumentTitle("Sign Up")
-  const client = useApolloClient()
   const history = useHistory()
+  const { login } = useContext(AuthContext)
 
   const [signUp, { loading, error }] = useAppMutation("SIGN_UP", {
-    onCompleted: (data: { signUp: unknown }) => {
-      localStorage.setItem("token", JSON.stringify(data.signUp))
-      client.writeQuery({
-        query: IS_LOGGED_IN,
-        data: {
-          isLoggedIn: true,
-        },
-      })
+    onCompleted: (data: { signUp: string }) => {
+      login(data.signUp)
       history.push("/")
     },
   })
