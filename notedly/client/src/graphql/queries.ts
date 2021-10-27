@@ -11,6 +11,10 @@ export const GET_NOTES = gql`
         updatedAt
         content
         favoriteCount
+        favoritedBy {
+          id
+          username
+        }
         author {
           username
           id

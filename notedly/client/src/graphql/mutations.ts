@@ -11,3 +11,23 @@ export const SIGN_IN = gql`
     signIn(username: $username, email: $email, password: $password)
   }
 `
+export const NEW_NOTE = gql`
+  mutation newNote($content: String!) {
+    newNote(content: $content) {
+      id
+      createdAt
+      updatedAt
+      content
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        username
+        id
+        avatar
+      }
+    }
+  }
+`

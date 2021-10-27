@@ -19,16 +19,18 @@ const cache = new InMemoryCache()
 
 const httpLink = createHttpLink({ uri })
 const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("token")
   return {
     headers: {
       ...headers,
-      authorization: localStorage.getItem("token") || "",
+      Authorization: token || "",
     },
   }
 })
 
 const client = new ApolloClient({
-  link: { ...authLink, ...httpLink } as ApolloLink,
+  // @ts-ignore
+  link: authLink.concat(httpLink),
   cache,
   connectToDevTools: true,
 })

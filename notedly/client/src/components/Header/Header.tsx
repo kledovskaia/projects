@@ -18,7 +18,12 @@ export const Header = () => {
               <Link to="/sign-up">SignUp</Link>
             </>
           )}
-          {isLoggedIn && <LogOut onClick={logout}>LogOut</LogOut>}
+          {isLoggedIn && (
+            <>
+              <Link to="/new">New Note</Link>
+              <LogOut onClick={logout}>LogOut</LogOut>
+            </>
+          )}
         </>
       )}
     </Container>
