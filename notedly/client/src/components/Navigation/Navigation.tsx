@@ -1,32 +1,37 @@
-import { NavLink } from "react-router-dom"
-import { Container, List, Logo, LogoAnimated, Text } from "./styles"
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import { Bookmarks, Home, MenuBook } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 
 export const Navigation = () => {
   return (
-    <Container>
-      <List>
-        <li>
-          <NavLink exact to="/">
-            <Logo src="/images/home.svg" />
-            <LogoAnimated src="/images/home.gif" />
-            <Text>Home</Text>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/my-notes">
-            <Logo src="/images/note.svg" />
-            <LogoAnimated src="/images/note.gif" />
-            <Text>My Notes</Text>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/favorites">
-            <Logo src="/images/favorites.svg" />
-            <LogoAnimated src="/images/favorites.gif" />
-            <Text>Favorites</Text>
-          </NavLink>
-        </li>
-      </List>
-    </Container>
+    <AppBar
+      position="fixed"
+      color="primary"
+      sx={{
+        top: 'auto',
+        bottom: 0,
+      }}
+    >
+      <Toolbar sx={{ margin: '0 auto' }}>
+        <Link className="iconLink" to="/">
+          <IconButton color="inherit">
+            <Home />
+          </IconButton>
+        </Link>
+        <Link className="iconLink" to="/my-notes">
+          <IconButton color="inherit">
+            <MenuBook />
+          </IconButton>
+        </Link>
+        <Link className="iconLink" to="/favorites">
+          <IconButton color="inherit">
+            <Bookmarks />
+          </IconButton>
+        </Link>
+      </Toolbar>
+    </AppBar>
   )
 }
