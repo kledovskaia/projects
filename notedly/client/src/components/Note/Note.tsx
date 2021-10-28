@@ -1,7 +1,7 @@
-import { FC, useContext } from "react"
-import { Link } from "react-router-dom"
-import { AuthContext } from "../../context/Auth"
-import { stopBubbling } from "../../helpers/functions"
+import { FC, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/Auth'
+import { stopBubbling } from '../../helpers/functions'
 import {
   AuthorContainer,
   AuthorName,
@@ -14,7 +14,7 @@ import {
   ToggleFavorite,
   ToggleFavoriteIcon,
   UpdatedAt,
-} from "./styles"
+} from './styles'
 
 type Props = {
   note: TNote
@@ -35,7 +35,8 @@ export const Note: FC<Props> = ({ note }) => {
         )}
         {isLoggedIn && (
           <ToggleFavorite>
-            <ToggleFavoriteIcon></ToggleFavoriteIcon>
+            Favorite
+            <ToggleFavoriteIcon />
           </ToggleFavorite>
         )}
       </Header>
