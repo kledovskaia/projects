@@ -16,6 +16,7 @@ export const EditNote = () => {
       id,
     },
   })
+
   const [updateNote, { loading: loadingUpdate, error: errorUpdate }] =
     useAppMutation("UPDATE_NOTE", {
       refetchQueries: [{ query: GET_NOTES }, { query: GET_MY_NOTES }],
@@ -33,5 +34,17 @@ export const EditNote = () => {
     })
   }
 
-  return <NoteForm submit={handleSubmit} noteContent={data?.note.content} />
+  return (
+    <>
+      {errorGet !== undefined && (
+        <>
+          {errorGet && <h1>Not Found</h1>}
+          {!errorGet && (
+            <NoteForm submit={handleSubmit} noteContent={data?.note.content} />
+          )}
+        </>
+      )}
+      {data && <h1>You don't have access to edit this note</h1>}
+    </>
+  )
 }

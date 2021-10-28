@@ -1,10 +1,12 @@
 import { createContext, FC, useEffect, useState } from "react"
 import { useHistory, useLocation } from "react-router"
+import { useAppQuery } from "../hooks/useAppQuery"
 
 export const AuthContext = createContext<{
   isLoggedIn: boolean
   logout: () => void
   login: (token: string) => void
+  data?: TUser
 }>(null!)
 
 const protectedPaths = ["/my-notes", "/favorites"]
@@ -14,10 +16,15 @@ export const AuthProvider: FC = ({ children }) => {
   const location = useLocation()
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(null!)
   const [token, setToken] = useState<string>(null!)
+  const { data, fetchMore } = useAppQuery<{ me: TUser }>("GET_MY_INFO")
 
   useEffect(() => {
     setToken(localStorage.getItem("token") || "")
   }, [])
+
+  useEffect(() => {
+    if (isLoggedIn) fetchMore({})
+  }, [isLoggedIn])
 
   useEffect(() => {
     if (token === null) return
@@ -48,6 +55,7 @@ export const AuthProvider: FC = ({ children }) => {
         isLoggedIn,
         login,
         logout,
+        data: data?.me,
       }}
     >
       {children}

@@ -11,5 +11,7 @@ export const MyNotes = () => {
     }
   }>("GET_MY_NOTES")
 
-  return <NoteGrid>{data && <NoteFeed notes={data.me.notes} />}</NoteGrid>
+  return (
+    <NoteGrid>{data && data.me && <NoteFeed notes={data.me.notes} />}</NoteGrid>
+  )
 }

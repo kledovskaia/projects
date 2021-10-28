@@ -1,7 +1,7 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
 import { Link } from "react-router-dom"
+import { AuthContext } from "../../context/Auth"
 import { stopBubbling } from "../../helpers/functions"
-import { useAppQuery } from "../../hooks/useAppQuery"
 import {
   AuthorContainer,
   AuthorName,
@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const Note: FC<Props> = ({ note }) => {
-  const { data } = useAppQuery<{ me: TUser }>("GET_MY_INFO")
+  const { data, isLoggedIn } = useContext(AuthContext)
 
   return (
     <Container>
@@ -30,12 +30,14 @@ export const Note: FC<Props> = ({ note }) => {
           <AuthorPhoto src={note.author.avatar} alt={note.author.username} />
           <AuthorName>{note.author.username}</AuthorName>
         </AuthorContainer>
-        {data && note.author.id === data.me.id && (
+        {data && note.author.id === data.id && (
           <Link to={`/edit/${note.id}`}>Edit</Link>
         )}
-        <ToggleFavorite>
-          <ToggleFavoriteIcon></ToggleFavoriteIcon>
-        </ToggleFavorite>
+        {isLoggedIn && (
+          <ToggleFavorite>
+            <ToggleFavoriteIcon></ToggleFavoriteIcon>
+          </ToggleFavorite>
+        )}
       </Header>
       <Content>{note.content}</Content>
       <Footer>
