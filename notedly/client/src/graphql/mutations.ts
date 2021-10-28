@@ -5,3 +5,49 @@ export const SIGN_UP = gql`
     signUp(username: $username, email: $email, password: $password)
   }
 `
+
+export const SIGN_IN = gql`
+  mutation signIn($username: String, $email: String, $password: String!) {
+    signIn(username: $username, email: $email, password: $password)
+  }
+`
+export const NEW_NOTE = gql`
+  mutation newNote($content: String!) {
+    newNote(content: $content) {
+      id
+      createdAt
+      updatedAt
+      content
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        username
+        id
+        avatar
+      }
+    }
+  }
+`
+export const UPDATE_NOTE = gql`
+  mutation updateNote($id: ID!, $content: String!) {
+    updateNote(id: $id, content: $content) {
+      id
+      createdAt
+      updatedAt
+      content
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        username
+        id
+        avatar
+      }
+    }
+  }
+`

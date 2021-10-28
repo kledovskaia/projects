@@ -1,11 +1,5 @@
 import { gql } from "@apollo/client"
 
-export const IS_LOGGED_IN = gql`
-  {
-    isLoggedIn @client
-  }
-`
-
 export const GET_NOTES = gql`
   query noteFeed($cursor: String) {
     noteFeed(cursor: $cursor) {
@@ -17,6 +11,54 @@ export const GET_NOTES = gql`
         updatedAt
         content
         favoriteCount
+        favoritedBy {
+          id
+          username
+        }
+        author {
+          username
+          id
+          avatar
+        }
+      }
+    }
+  }
+`
+export const GET_MY_NOTES = gql`
+  query myNotes {
+    me {
+      notes {
+        id
+        createdAt
+        updatedAt
+        content
+        favoriteCount
+        favoritedBy {
+          id
+          username
+        }
+        author {
+          username
+          id
+          avatar
+        }
+      }
+    }
+  }
+`
+export const GET_FAVORITE_NOTES = gql`
+  query myNotes {
+    me {
+      favorites {
+        id
+        createdAt
+        updatedAt
+        content
+        favoriteCount
+        favoritedBy {
+          id
+          username
+        }
         author {
           username
           id
@@ -40,6 +82,17 @@ export const GET_NOTE = gql`
         id
         avatar
       }
+    }
+  }
+`
+
+export const GET_MY_INFO = gql`
+  query {
+    me {
+      id
+      username
+      email
+      avatar
     }
   }
 `

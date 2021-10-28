@@ -12,22 +12,25 @@ import {
   ApolloLink,
 } from "@apollo/client"
 import { setContext } from "apollo-link-context"
+import { AuthProvider } from "./context/Auth"
 
 const uri = process.env.API_URI || "http://localhost:4000/api"
 const cache = new InMemoryCache()
 
 const httpLink = createHttpLink({ uri })
 const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("token")
   return {
     headers: {
       ...headers,
-      authorization: localStorage.getItem("token") || "",
+      Authorization: token || "",
     },
   }
 })
 
 const client = new ApolloClient({
-  link: { ...authLink, ...httpLink } as ApolloLink,
+  // @ts-ignore
+  link: authLink.concat(httpLink),
   cache,
   connectToDevTools: true,
 })
@@ -36,7 +39,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ApolloProvider>
     </Router>
   </React.StrictMode>,

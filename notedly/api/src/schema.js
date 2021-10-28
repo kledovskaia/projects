@@ -12,7 +12,7 @@ module.exports = gql`
   }
   type NoteFeed {
     notes: [Note]!
-    cursor: String!
+    cursor: String
     hasNextPage: Boolean!
   }
   type Note {
@@ -34,7 +34,7 @@ module.exports = gql`
   }
   type Mutation {
     toggleFavorite(id: ID!): Note!
-    addNote(content: String!): Note!
+    newNote(content: String!): Note!
     deleteNote(id: ID!): Boolean!
     updateNote(id: ID!, content: String!): Note!
     signUp(username: String!, email: String!, password: String!): String!

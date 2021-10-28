@@ -1,8 +1,7 @@
 import { useDocumentTitle } from "../../hooks/useDocumentTitle"
-import { useEffect } from "react"
 import { useAppQuery } from "../../hooks/useAppQuery"
-import { Container } from "./styles"
 import { NoteFeed } from "../../components/NoteFeed/NoteFeed"
+import { NoteGrid } from "../../components/NoteGrid/NoteGrid"
 
 type TResponse = {
   noteFeed: {
@@ -39,8 +38,8 @@ export const Home = () => {
   if (error) return <p>Error!</p>
 
   return (
-    <Container>
-      {data && data.noteFeed && (
+    <NoteGrid>
+      {data && (
         <>
           <NoteFeed notes={data.noteFeed.notes} />
           {data.noteFeed.hasNextPage && (
@@ -48,6 +47,6 @@ export const Home = () => {
           )}
         </>
       )}
-    </Container>
+    </NoteGrid>
   )
 }

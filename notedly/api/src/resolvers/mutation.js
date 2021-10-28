@@ -84,7 +84,7 @@ module.exports = {
       throw new Error('Error creating account');
     }
   },
-  addNote: async (_, { content }, { models, user }) => {
+  newNote: async (_, { content }, { models, user }) => {
     if (!user)
       throw new AuthenticationError('You must be signed in to create a note');
 
