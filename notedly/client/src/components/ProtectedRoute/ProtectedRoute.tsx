@@ -1,9 +1,9 @@
-import { FC, useContext } from "react"
-import { Redirect, Route, useLocation } from "react-router"
-import { AuthContext } from "../../context/Auth"
+import { FC, useContext } from 'react'
+import { Redirect, Route, useLocation } from 'react-router'
+import { AuthContext } from '../../context/Auth'
 
-const protectedFromUnAuth = ["/my-notes", "/favorites"]
-const protectedFromAuth = ["/sign-up", "/sign-in"]
+const protectedFromUnAuth = ['/my-notes', '/favorites']
+const protectedFromAuth = ['/sign-up', '/sign-in']
 
 type Props = {
   component: () => JSX.Element
@@ -22,10 +22,10 @@ export const ProtectedRoute: FC<Props> = ({
   return (
     <Route path={path} exact={exact}>
       {!isLoggedIn && protectedFromUnAuth.includes(path) && (
-        <Redirect to={{ pathname: "/sign-in", state: { from: location } }} />
+        <Redirect to={{ pathname: '/sign-in', state: { from: location } }} />
       )}
       {isLoggedIn && protectedFromAuth.includes(path) && (
-        <Redirect to={{ pathname: "/", state: { from: location } }} />
+        <Redirect to={{ pathname: '/', state: { from: location } }} />
       )}
       <Component />
     </Route>

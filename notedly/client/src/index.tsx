@@ -1,29 +1,28 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import "./index.css"
-import { App } from "./App"
-import reportWebVitals from "./reportWebVitals"
-import { BrowserRouter as Router } from "react-router-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import { App } from './App'
+import reportWebVitals from './reportWebVitals'
+import { BrowserRouter as Router } from 'react-router-dom'
 import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
   createHttpLink,
-  ApolloLink,
-} from "@apollo/client"
-import { setContext } from "apollo-link-context"
-import { AuthProvider } from "./context/Auth"
+} from '@apollo/client'
+import { setContext } from 'apollo-link-context'
+import { AuthProvider } from './context/Auth'
 
-const uri = process.env.API_URI || "http://localhost:4000/api"
+const uri = process.env.API_URI || 'http://localhost:4000/api'
 const cache = new InMemoryCache()
 
 const httpLink = createHttpLink({ uri })
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem('token')
   return {
     headers: {
       ...headers,
-      Authorization: token || "",
+      Authorization: token || '',
     },
   }
 })
@@ -45,7 +44,7 @@ ReactDOM.render(
       </ApolloProvider>
     </Router>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 )
 
 // If you want to start measuring performance in your app, pass a function

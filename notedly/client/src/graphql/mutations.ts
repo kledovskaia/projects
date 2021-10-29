@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client"
+import { gql } from '@apollo/client'
 
 export const SIGN_UP = gql`
   mutation signUp($username: String!, $email: String!, $password: String!) {
@@ -34,6 +34,33 @@ export const NEW_NOTE = gql`
 export const UPDATE_NOTE = gql`
   mutation updateNote($id: ID!, $content: String!) {
     updateNote(id: $id, content: $content) {
+      id
+      createdAt
+      updatedAt
+      content
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        username
+        id
+        avatar
+      }
+    }
+  }
+`
+
+export const DELETE_NOTE = gql`
+  mutation deleteNote($id: ID!) {
+    deleteNote(id: $id)
+  }
+`
+
+export const TOGGLE_FAVORITE = gql`
+  mutation toggleFavorite($id: ID!) {
+    toggleFavorite(id: $id) {
       id
       createdAt
       updatedAt
