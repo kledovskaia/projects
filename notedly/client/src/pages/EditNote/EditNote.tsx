@@ -40,17 +40,12 @@ export const EditNote = () => {
   return (
     <>
       {errorGet !== undefined && <>{errorGet && <h1>Not Found</h1>}</>}
-      {data && data.note && (
-        <>
-          {data.note.author.id !== userData?.id && (
-            <h1>You don't have access to edit this note</h1>
-          )}
-          {!errorGet && data.note.author.id === userData?.id && (
-            <NoteForm submit={handleSubmit} noteContent={data?.note.content} />
-          )}
-        </>
+      {data && data.note.author.id !== userData?.id && (
+        <h1>You don't have access to edit this note</h1>
       )}
-      {!(data && data.note) && <h1>Not Found</h1>}
+      {data && !errorGet && data.note.author.id === userData?.id && (
+        <NoteForm submit={handleSubmit} noteContent={data?.note.content} />
+      )}
     </>
   )
 }
