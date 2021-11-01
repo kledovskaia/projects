@@ -10,6 +10,7 @@ export const App = () => {
         <Card>Hello!</Card>
         <AddItem type="task" action={() => {}} />
       </Column>
+      <AddItem type="list" action={() => {}} />
     </Container>
   )
 }

@@ -1,6 +1,14 @@
 import { FC } from 'react'
-import { Container } from './styles'
+import { Container, Item } from './styles'
 
 export const Card: FC = ({ children }) => {
-  return <Container>{children}</Container>
+  return (
+    <Container>
+      {Array.isArray(children) ? (
+        children.map((item) => <Item key={item}>{item}</Item>)
+      ) : (
+        <Item key={children?.toString()}>{children}</Item>
+      )}
+    </Container>
+  )
 }

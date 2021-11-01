@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import {
+  ChangeEvent,
+  createRef,
+  FC,
+  FormEvent,
+  useEffect,
+  useState,
+} from 'react'
 import { Form, Input, Submit } from './styles'
 
 type Props = {
@@ -7,6 +14,12 @@ type Props = {
 
 export const NewItemForm: FC<Props> = ({ action }) => {
   const [value, setValue] = useState('')
+  const inputRef = createRef<HTMLInputElement>()
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
@@ -19,7 +32,7 @@ export const NewItemForm: FC<Props> = ({ action }) => {
 
   return (
     <Form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
-      <Input value={value} onChange={handleChange} />
+      <Input ref={inputRef} value={value} onChange={handleChange} />
       <Submit>Create</Submit>
     </Form>
   )

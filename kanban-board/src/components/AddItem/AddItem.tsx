@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import { NewItemForm } from '../NewItemForm/NewItemForm'
-import { Toggle } from './styles'
+import { Container, Toggle } from './styles'
 
-type Props = {
+export type Props = {
   type: 'task' | 'list'
   action: (input: string) => void
 }
@@ -25,11 +25,13 @@ export const AddItem: FC<Props> = ({ type, action }) => {
   }, [isActive])
 
   return (
-    <>
+    <Container>
       {!isActive && (
-        <Toggle onClick={() => setIsActive(true)}>+ Add anoter {type}</Toggle>
+        <Toggle addType={type} onClick={() => setIsActive(true)}>
+          + Add anoter {type}
+        </Toggle>
       )}
       {isActive && <NewItemForm action={action} />}
-    </>
+    </Container>
   )
 }
