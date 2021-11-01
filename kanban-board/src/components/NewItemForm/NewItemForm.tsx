@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { useFocus } from '../../hooks/useFocus'
 import { Form, Input, Submit } from './styles'
 
 type Props = {
@@ -14,11 +15,7 @@ type Props = {
 
 export const NewItemForm: FC<Props> = ({ action }) => {
   const [value, setValue] = useState('')
-  const inputRef = createRef<HTMLInputElement>()
-
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
+  const inputRef = useFocus<HTMLInputElement>()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
