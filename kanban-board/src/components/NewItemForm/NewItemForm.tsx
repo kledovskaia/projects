@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  createRef,
-  FC,
-  FormEvent,
-  useEffect,
-  useState,
-} from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useFocus } from '../../hooks/useFocus'
 import { Form, Input, Submit } from './styles'
 

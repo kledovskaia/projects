@@ -1,7 +1,7 @@
-import { createRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export const useFocus = <T extends HTMLElement>() => {
-  const ref = createRef<T>()
+  const ref = useRef<T>(null)
 
   useEffect(() => {
     ref.current?.focus()
