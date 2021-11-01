@@ -20,7 +20,7 @@ export const NewItemForm: FC<Props> = ({ action }) => {
   return (
     <Form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
       <Input value={value} onChange={handleChange} />
-      <Submit />
+      <Submit>Create</Submit>
     </Form>
   )
 }

@@ -27,7 +27,7 @@ export const AddItem: FC<Props> = ({ type, action }) => {
   return (
     <>
       {!isActive && (
-        <Toggle onClick={() => setIsActive(true)}>Add anoter {type}</Toggle>
+        <Toggle onClick={() => setIsActive(true)}>+ Add anoter {type}</Toggle>
       )}
       {isActive && <NewItemForm action={action} />}
     </>
