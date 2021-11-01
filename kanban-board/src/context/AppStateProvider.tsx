@@ -1,18 +1,44 @@
-import { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
+import { createContext, FC, useState } from 'react'
 
-const initialState = {
-  lists: [] as List[],
+type AppState = {
+  lists: List[]
+  getTasksByListId: (id: List['id']) => List['tasks'] | undefined
 }
 
-export const AppStateContext = createContext<
-  [typeof initialState, Dispatch<SetStateAction<typeof initialState>>]
->(null!)
+const lists = [
+  {
+    id: '0',
+    text: 'To Do',
+    tasks: [{ id: 'c0', text: 'Generate app scaffold' }],
+  },
+  {
+    id: '1',
+    text: 'In Progress',
+    tasks: [{ id: 'c2', text: 'Learn Typescript' }],
+  },
+  {
+    id: '2',
+    text: 'Done',
+    tasks: [{ id: 'c3', text: 'Begin to use static typing' }],
+  },
+]
+
+export const AppStateContext = createContext<AppState>({} as AppState)
 
 export const AppStateProvider: FC = ({ children }) => {
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState(lists)
+
+  const getTasksByListId = (id: List['id']) => {
+    return state.find((list) => list.id == id)?.tasks
+  }
 
   return (
-    <AppStateContext.Provider value={[state, setState]}>
+    <AppStateContext.Provider
+      value={{
+        lists: state,
+        getTasksByListId,
+      }}
+    >
       {children}
     </AppStateContext.Provider>
   )
