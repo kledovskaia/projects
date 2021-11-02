@@ -1,13 +1,17 @@
 import { FC } from 'react'
 import { Container, Item } from './styles'
 
-export const Card: FC = ({ children }) => {
+type Props = {
+  children: Task | Task[]
+}
+
+export const Card: FC<Props> = ({ children }) => {
   return (
     <Container>
       {Array.isArray(children) ? (
-        children.map((item) => <Item key={item}>{item}</Item>)
+        children.map((item) => <Item key={item.id}>{item.text}</Item>)
       ) : (
-        <Item key={children?.toString()}>{children}</Item>
+        <Item key={children?.toString()}>{children.text}</Item>
       )}
     </Container>
   )
