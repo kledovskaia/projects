@@ -15,6 +15,7 @@ body {
   font-size: 1.6rem;
   min-height: 100vh;
   background-color: #2c7aba;
+  overflow: auto;
 }
 
 input,
