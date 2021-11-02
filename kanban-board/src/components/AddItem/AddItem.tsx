@@ -26,7 +26,6 @@ export const AddItem: FC<Props> = ({ type, action }) => {
 
   const handleAction = (content: string) => {
     action(content)
-    if (type === 'task') return
     setIsActive(false)
   }
 

@@ -12,13 +12,10 @@ type Props = {
 }
 
 export const Column: FC<Props> = ({ title, id, action }) => {
-  const { getTasksByListId } = useAppState()
-  const tasks = getTasksByListId?.(id)
-
   return (
     <Container>
       <Title>{title}</Title>
-      {tasks && <Card>{tasks}</Card>}
+      <Card id={id} />
       <AddItem type="task" action={action(id)} />
     </Container>
   )

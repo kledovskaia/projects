@@ -13,12 +13,29 @@ export type AppState = {
 
 export const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
+    case types.SET_TASKS: {
+      const targetListIndex = state.lists.findIndex(
+        (list) => list.id === action.payload.listId
+      )
+      if (targetListIndex === -1) return state
+      return {
+        ...state,
+        lists: [
+          ...state.lists.slice(0, targetListIndex),
+          {
+            ...state.lists[targetListIndex],
+            tasks: action.payload.tasks,
+          },
+          ...state.lists.slice(targetListIndex + 1),
+        ],
+      }
+    }
     case types.ADD_LIST:
       return {
         ...state,
         lists: [...state.lists, new List(action.payload)],
       }
-    case types.ADD_TASK:
+    case types.ADD_TASK: {
       const targetListIndex = state.lists.findIndex(
         (list) => list.id === action.payload.listId
       )
@@ -37,6 +54,7 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
           ...state.lists.slice(targetListIndex + 1),
         ],
       }
+    }
     default:
       return state
   }

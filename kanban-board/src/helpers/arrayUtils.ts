@@ -1,13 +1,11 @@
-export const moveItem = <T>(array: T[], from: number, to: number) => {
-  const item = array[from]
-  return insertItemTo(removeItemFrom(array, from), item, to)
-}
+export const reorder = <T>(
+  list: T[],
+  startIndex: number,
+  endIndex: number
+): T[] => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
 
-const removeItemFrom = <T>(array: T[], index: number) => {
-  return [...array.slice(0, index), ...array.slice(index + 1)]
-}
-const insertItemTo = <T>(array: T[], item: T, index: number) => {
-  if (!index || index < 0 || index > array.length)
-    throw new Error('Invalid index')
-  return [...array.slice(0, index), item, ...array.slice(index + 1)]
+  return result
 }
