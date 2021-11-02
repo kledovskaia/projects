@@ -1,6 +1,6 @@
 import { createContext, FC, useState } from 'react'
 
-type AppState = {
+export type AppState = {
   lists: List[]
   getTasksByListId: (id: List['id']) => List['tasks'] | undefined
 }
@@ -8,17 +8,17 @@ type AppState = {
 const lists = [
   {
     id: '0',
-    text: 'To Do',
+    title: 'To Do',
     tasks: [{ id: 'c0', text: 'Generate app scaffold' }],
   },
   {
     id: '1',
-    text: 'In Progress',
+    title: 'In Progress',
     tasks: [{ id: 'c2', text: 'Learn Typescript' }],
   },
   {
     id: '2',
-    text: 'Done',
+    title: 'Done',
     tasks: [{ id: 'c3', text: 'Begin to use static typing' }],
   },
 ]

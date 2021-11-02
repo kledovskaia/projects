@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './components/App/App'
-import { AppStateProvider } from './context/AppStateProvider'
+import { AppStateProvider } from './state/AppStateProvider'
 import './index.css'
 
 ReactDOM.render(

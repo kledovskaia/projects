@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import macro from 'styled-components/macro'
 
 export const Container = styled.article`
+  align-self: flex-start;
   background-color: #f0f1f4;
   border-radius: 0.25rem;
   padding: 1rem;

@@ -1,6 +1,5 @@
 import { useAppState } from '../../hooks/useAppState'
 import { AddItem } from '../AddItem/AddItem'
-import { Card } from '../Card/Card'
 import { Column } from '../Column/Column'
 import { Container } from './styles'
 
@@ -10,10 +9,7 @@ export const App = () => {
   return (
     <Container>
       {lists.map((list) => (
-        <Column title={list.text} key={list.id}>
-          <Card>{list.tasks}</Card>
-          <AddItem type="task" action={() => {}} />
-        </Column>
+        <Column title={list.title} key={list.id} id={list.id} />
       ))}
       <AddItem type="list" action={() => {}} />
     </Container>

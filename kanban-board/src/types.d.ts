@@ -1,6 +1,6 @@
 type List = {
   id: string
-  text: string
+  title: string
   tasks: Task[]
 }
 type Task = {
