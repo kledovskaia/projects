@@ -1,9 +1,9 @@
-type List = {
+type TList = {
   id: string
   title: string
   tasks: Task[]
 }
-type Task = {
+type TTask = {
   id: string
   text: string
 }

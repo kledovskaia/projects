@@ -1,19 +1,17 @@
-import * as types from './types'
-
 export const addTask = ({
   listId,
   text,
 }: {
-  listId: List['id']
-  text: Task['text']
+  listId: TList['id']
+  text: TTask['text']
 }) => ({
-  type: types.ADD_TASK,
+  type: 'ADD_TASK' as const,
   payload: {
     listId,
     text,
   },
 })
-export const addList = (title: List['title']) => ({
-  type: types.ADD_LIST,
+export const addList = (title: TList['title']) => ({
+  type: 'ADD_LIST' as const,
   payload: title,
 })

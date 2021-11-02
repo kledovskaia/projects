@@ -17,6 +17,7 @@ export const NewItemForm: FC<Props> = ({ action }) => {
     e.preventDefault()
     const formattedValue = value.trim().replace(/\s+/g, ' ')
     if (!formattedValue) return
+    setValue('')
     action(formattedValue)
   }
 

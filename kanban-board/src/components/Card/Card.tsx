@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Container, Item } from './styles'
 
 type Props = {
-  children: Task | Task[]
+  children: TTask | TTask[]
 }
 
 export const Card: FC<Props> = ({ children }) => {

@@ -24,6 +24,11 @@ export const AddItem: FC<Props> = ({ type, action }) => {
     }
   }, [isActive])
 
+  const handleAction = (content: string) => {
+    action(content)
+    setIsActive(false)
+  }
+
   return (
     <Container>
       {!isActive && (
@@ -31,7 +36,7 @@ export const AddItem: FC<Props> = ({ type, action }) => {
           + Add anoter {type}
         </Toggle>
       )}
-      {isActive && <NewItemForm action={action} />}
+      {isActive && <NewItemForm action={handleAction} />}
     </Container>
   )
 }
