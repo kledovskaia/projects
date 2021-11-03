@@ -9,7 +9,11 @@ export type AppState = {
   lists: {
     [key in TList["id"]]: TList;
   };
-  getTasksByListId?: (id: TList["id"]) => TList["tasks"];
+  tasks: {
+    [key in TList["id"]]: TTask;
+  };
+  listOrder: TList["id"][];
+  getTasksByListId?: (id: TList["id"]) => TTask[];
   dispatch?: Dispatch<Action>;
 };
 
@@ -36,7 +40,7 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
           ...state.lists,
           [action.payload.listId]: {
             ...state.lists[action.payload.listId],
-            tasks: action.payload.tasks,
+            taskIds: action.payload.taskIds,
           },
         },
       };
@@ -51,15 +55,17 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
         },
       };
     case types.ADD_TASK: {
+      const newTask = new Task(action.payload.content);
       return {
         ...state,
+        tasks: { ...state.tasks, [newTask.id]: newTask },
         lists: {
           ...state.lists,
           [action.payload.listId]: {
             ...state.lists[action.payload.listId],
-            tasks: [
-              ...state.lists[action.payload.listId].tasks,
-              new Task(action.payload.text),
+            taskIds: [
+              ...state.lists[action.payload.listId].taskIds,
+              newTask.id,
             ],
           },
         },

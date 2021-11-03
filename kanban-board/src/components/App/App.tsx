@@ -12,7 +12,7 @@ import { move, reorder } from "../../helpers/arrayUtils";
 
 export type HandleAddTask = (
   listId: TList["id"]
-) => (text: TTask["text"]) => void;
+) => (content: TTask["content"]) => void;
 
 type HandleAddList = (title: TList["title"]) => void;
 
@@ -23,11 +23,11 @@ export const App = () => {
     dispatch?.(addList(title));
   };
 
-  const handleAddTask: HandleAddTask = (listId) => (text) => {
+  const handleAddTask: HandleAddTask = (listId) => (content) => {
     dispatch?.(
       addTask({
         listId,
-        text,
+        content,
       })
     );
   };
@@ -44,8 +44,8 @@ export const App = () => {
     if (result.source.droppableId === result.destination.droppableId) {
       dispatch?.(
         setTasks({
-          tasks: reorder(
-            lists[result.source.droppableId].tasks,
+          taskIds: reorder(
+            lists[result.source.droppableId].taskIds,
             result.source.index,
             result.destination.index
           ),
@@ -58,10 +58,10 @@ export const App = () => {
       if (!source || !destination) return;
 
       const moved: {
-        [key in TList["id"]]: TList["tasks"];
+        [key in TList["id"]]: TList["taskIds"];
       } = move(
-        source.tasks,
-        destination.tasks,
+        source.taskIds,
+        destination.taskIds,
         result.source,
         result.destination
       );

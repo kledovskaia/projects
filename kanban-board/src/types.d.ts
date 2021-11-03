@@ -1,9 +1,9 @@
 type TList = {
-  id: string
-  title: string
-  tasks: Task[]
-}
+  id: string;
+  title: string;
+  taskIds: TTask["id"][];
+};
 type TTask = {
-  id: string
-  text: string
-}
+  id: string;
+  content: string;
+};

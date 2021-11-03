@@ -1,15 +1,15 @@
-import { FC } from 'react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { useAppState } from '../../hooks/useAppState'
-import { Container, Item } from './styles'
+import { FC } from "react";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useAppState } from "../../hooks/useAppState";
+import { Container, Item } from "./styles";
 
 type Props = {
-  id: TList['id']
-}
+  id: TList["id"];
+};
 
 export const Card: FC<Props> = ({ id }) => {
-  const { getTasksByListId } = useAppState()
-  const tasks = getTasksByListId?.(id)
+  const { getTasksByListId } = useAppState();
+  const tasks = getTasksByListId?.(id);
 
   return (
     <Droppable droppableId={id}>
@@ -23,7 +23,7 @@ export const Card: FC<Props> = ({ id }) => {
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
-                  {task.text}
+                  {task.content}
                 </Item>
               )}
             </Draggable>
@@ -33,5 +33,5 @@ export const Card: FC<Props> = ({ id }) => {
         </Container>
       )}
     </Droppable>
-  )
-}
+  );
+};

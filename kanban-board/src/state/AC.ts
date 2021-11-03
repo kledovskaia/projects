@@ -1,18 +1,21 @@
-export const updateLists = (listParams: {
-  [key in TList["id"]]: TList["tasks"];
+export const updateLists = (listTasks: {
+  [key in TList["id"]]: TList["taskIds"];
 }) => ({
   type: "UPDATE_LISTS" as const,
-  payload: listParams,
+  payload: listTasks,
 });
 
-export const setTasks = (args: { listId: TList["id"]; tasks: TTask[] }) => ({
+export const setTasks = (args: {
+  listId: TList["id"];
+  taskIds: TList["taskIds"];
+}) => ({
   type: "SET_TASKS" as const,
   payload: args,
 });
 
 export const addTask = (args: {
   listId: TList["id"];
-  text: TTask["text"];
+  content: TTask["content"];
 }) => ({
   type: "ADD_TASK" as const,
   payload: args,
