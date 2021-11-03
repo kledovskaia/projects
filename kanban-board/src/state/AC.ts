@@ -1,16 +1,10 @@
-export const updateLists = (listTasks: {
-  [key in TList["id"]]: TList["taskIds"];
-}) => ({
-  type: "UPDATE_LISTS" as const,
-  payload: listTasks,
-});
+import { AppState } from "./reducer";
 
-export const setTasks = (args: {
-  listId: TList["id"];
-  taskIds: TList["taskIds"];
+export const updateState = (state: {
+  [key in keyof AppState]?: AppState[key];
 }) => ({
-  type: "SET_TASKS" as const,
-  payload: args,
+  type: "UPDATE_STATE" as const,
+  payload: state,
 });
 
 export const addTask = (args: {

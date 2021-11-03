@@ -21,30 +21,11 @@ export const appStateReducer = (state: AppState, action: Action): AppState => {
   console.log(action.type);
   console.log(action.payload);
   switch (action.type) {
-    case types.UPDATE_LISTS:
-      const lists = { ...state.lists };
-      Object.entries(action.payload).forEach(([key, value]) => {
-        lists[key] = {
-          ...lists[key],
-          ...value,
-        };
-      });
+    case types.UPDATE_STATE:
       return {
         ...state,
-        lists,
+        ...action.payload,
       };
-    case types.SET_TASKS: {
-      return {
-        ...state,
-        lists: {
-          ...state.lists,
-          [action.payload.listId]: {
-            ...state.lists[action.payload.listId],
-            taskIds: action.payload.taskIds,
-          },
-        },
-      };
-    }
     case types.ADD_LIST:
       const newList = new List(action.payload);
       return {

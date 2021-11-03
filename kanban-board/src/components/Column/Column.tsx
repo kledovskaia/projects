@@ -1,22 +1,29 @@
-import { FC } from 'react'
-import { useAppState } from '../../hooks/useAppState'
-import { AddItem } from '../AddItem/AddItem'
-import { HandleAddTask } from '../App/App'
-import { Card } from '../Card/Card'
-import { Container, Title } from './styles'
+import { FC } from "react";
+import { AddItem } from "../AddItem/AddItem";
+// import { HandleAddTask } from "../App/App";
+import { Card } from "../Card/Card";
+import { Container, Title } from "./styles";
 
 type Props = {
-  title: string
-  id: string
-  action: HandleAddTask
-}
+  title: string;
+  id: string;
+  // action: HandleAddTask;
+  tasks: any;
+  placeholder: any;
+};
 
-export const Column: FC<Props> = ({ title, id, action }) => {
+export const Column: FC<Props> = ({
+  title,
+  id,
+  // action,
+  tasks,
+  placeholder,
+}) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <Card id={id} />
-      <AddItem type="task" action={action(id)} />
+      <Card placeholder={placeholder} tasks={tasks} id={id} />
+      {/* <AddItem type="task" action={action(id)} /> */}
     </Container>
-  )
-}
+  );
+};

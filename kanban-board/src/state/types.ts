@@ -1,4 +1,3 @@
 export const ADD_LIST = "ADD_LIST";
 export const ADD_TASK = "ADD_TASK";
-export const SET_TASKS = "SET_TASKS";
-export const UPDATE_LISTS = "UPDATE_LISTS";
+export const UPDATE_STATE = "UPDATE_STATE";
