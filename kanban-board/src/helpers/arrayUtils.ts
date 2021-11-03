@@ -9,3 +9,26 @@ export const reorder = <T>(
 
   return result
 }
+
+/**
+ * Moves an item from one list to another list.
+ */
+export const move = <T extends { index: number; droppableId: string }>(
+  source: T[],
+  destination: T[],
+  droppableSource: T,
+  droppableDestination: T
+) => {
+  const sourceClone = Array.from(source)
+  const destClone = Array.from(destination)
+  const [removed] = sourceClone.splice(droppableSource.index, 1)
+
+  destClone.splice(droppableDestination.index, 0, removed)
+
+  const result = {
+    [droppableSource.droppableId]: sourceClone,
+    [droppableDestination.droppableId]: destClone,
+  }
+
+  return result
+}
