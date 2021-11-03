@@ -23,3 +23,8 @@ textarea,
 button {
   font-family: inherit;
 }
+
+ul,
+ol {
+  list-style: none;
+}

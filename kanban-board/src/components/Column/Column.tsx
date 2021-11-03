@@ -6,24 +6,22 @@ import { Container, Title } from "./styles";
 
 type Props = {
   title: string;
-  id: string;
+  // id: string;
   // action: HandleAddTask;
-  tasks: any;
-  placeholder: any;
 };
 
 export const Column: FC<Props> = ({
+  children,
   title,
-  id,
+  // id,
   // action,
-  tasks,
-  placeholder,
 }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <Card placeholder={placeholder} tasks={tasks} id={id} />
+      {/* <Card placeholder={placeholder} tasks={tasks} id={id} /> */}
       {/* <AddItem type="task" action={action(id)} /> */}
+      {children}
     </Container>
   );
 };

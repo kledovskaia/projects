@@ -1,128 +1,13 @@
-// import { useAppState } from "../../hooks/useAppState";
-// import { AddItem } from "../AddItem/AddItem";
-// import { Column } from "../Column/Column";
-// import { Container } from "./styles";
-// import { addList, addTask, updateState } from "../../state/AC";
-// import {
-//   DragDropContext,
-//   DropResult,
-//   ResponderProvided,
-// } from "react-beautiful-dnd";
-
-// export type HandleAddTask = (
-//   listId: TList["id"]
-// ) => (content: TTask["content"]) => void;
-
-// type HandleAddList = (title: TList["title"]) => void;
-
-// export const App = () => {
-//   const { lists, tasks, listOrder, dispatch } = useAppState();
-
-//   const handleAddList: HandleAddList = (title) => {
-//     dispatch?.(addList(title));
-//   };
-
-//   const handleAddTask: HandleAddTask = (listId) => (content) => {
-//     dispatch?.(
-//       addTask({
-//         listId,
-//         content,
-//       })
-//     );
-//   };
-
-//   type OnDragEnd = (result: DropResult, provided: ResponderProvided) => void;
-//   const onDragEnd: OnDragEnd = (result) => {
-//     const { destination, source, draggableId } = result;
-
-//     if (!destination) {
-//       return;
-//     }
-
-//     if (
-//       destination.droppableId === source.droppableId &&
-//       destination.index === source.index
-//     ) {
-//       return;
-//     }
-
-//     const start = lists[source.droppableId];
-//     const finish = lists[destination.droppableId];
-
-//     if (start === finish) {
-//       const newTaskIds = Array.from(start.taskIds);
-//       newTaskIds.splice(source.index, 1);
-//       newTaskIds.splice(destination.index, 0, draggableId);
-
-//       const newColumn: TList = {
-//         ...start,
-//         taskIds: newTaskIds,
-//       };
-
-//       const newState = {
-//         lists: {
-//           ...lists,
-//           [newColumn.id]: newColumn,
-//         },
-//       };
-
-//       dispatch?.(updateState(newState));
-//       return;
-//     }
-
-//     // Moving from one list to another
-//     const startTaskIds = Array.from(start.taskIds);
-//     startTaskIds.splice(source.index, 1);
-//     const newStart = {
-//       ...start,
-//       taskIds: startTaskIds,
-//     };
-
-//     const finishTaskIds = Array.from(finish.taskIds);
-//     finishTaskIds.splice(destination.index, 0, draggableId);
-//     const newFinish: TList = {
-//       ...finish,
-//       taskIds: finishTaskIds,
-//     };
-
-//     const newState = {
-//       lists: {
-//         ...lists,
-//         [newStart.id]: newStart,
-//         [newFinish.id]: newFinish,
-//       },
-//     };
-//     dispatch?.(updateState(newState));
-//   };
-//   return (
-//     <Container>
-//       <DragDropContext onDragEnd={onDragEnd}>
-//         {Object.values(lists).map((list) => (
-//           <Column
-//             title={list.title}
-//             key={list.id}
-//             id={list.id}
-//             action={handleAddTask}
-//           />
-//         ))}
-//         <AddItem type="list" action={handleAddList} />
-//       </DragDropContext>
-//     </Container>
-//   );
-// };
 import { useState } from "react";
 import {
   DragDropContext,
   Draggable,
-  DraggingStyle,
   Droppable,
   DropResult,
-  NotDraggingStyle,
   ResponderProvided,
 } from "react-beautiful-dnd";
 import { reorder } from "../../helpers/arrayUtils";
-import { Column } from "../Column/Column";
-import { Container } from "./styles";
+import { Card, CardItem, Column, Container, Title } from "./styles";
 
 // fake data generator
 const getItems = (count: number, offset = 0) =>
@@ -160,29 +45,6 @@ const move = <
   return result;
 };
 
-const getItemStyle = (
-  isDragging: boolean,
-  draggableStyle?: DraggingStyle | NotDraggingStyle
-) => ({
-  // some basic styles to make the items look a bit nicer
-  // userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-
-const grid = 8;
-const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 250,
-});
-
 export const App = () => {
   const [state, setState] = useState([getItems(10), getItems(5, 10)]);
 
@@ -214,79 +76,39 @@ export const App = () => {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => {
-          setState([...state, []]);
-        }}
-      >
-        Add new group
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setState([...state, getItems(1)]);
-        }}
-      >
-        Add new item
-      </button>
-      <div style={{ display: "flex" }}>
+      <Container>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.map((el, ind) => (
             <Droppable key={ind} droppableId={`${ind}`}>
               {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                  {...provided.droppableProps}
-                >
-                  {el.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-around",
-                            }}
+                <Column>
+                  <Title>Title</Title>
+                  <Card ref={provided.innerRef} {...provided.droppableProps}>
+                    {el.map((item, index) => (
+                      <Draggable
+                        key={item.id}
+                        draggableId={item.id}
+                        index={index}
+                      >
+                        {(provided, snapshot) => (
+                          <CardItem
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
                           >
                             {item.content}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const newState = [...state];
-                                newState[ind].splice(index, 1);
-                                setState(
-                                  newState.filter((group) => group.length)
-                                );
-                              }}
-                            >
-                              delete
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
+                          </CardItem>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </Card>
+                </Column>
               )}
             </Droppable>
           ))}
         </DragDropContext>
-      </div>
+      </Container>
     </div>
   );
 };
