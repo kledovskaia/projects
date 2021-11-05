@@ -1,10 +1,10 @@
-import { AppState } from "./reducer";
-
-export const updateState = (state: {
-  [key in keyof AppState]?: AppState[key];
-}) => ({
-  type: "UPDATE_STATE" as const,
-  payload: state,
+export const moveList = (args: { draggedId: string; hoverId: string }) => ({
+  type: "MOVE_LIST" as const,
+  payload: args,
+});
+export const moveTask = (args: { draggedId: string; hoverId: string }) => ({
+  type: "MOVE_TASK" as const,
+  payload: args,
 });
 
 export const addTask = (args: {
