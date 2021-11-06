@@ -1,5 +1,11 @@
+import { Header } from "./components/Header/Header";
+
 export const App = () => {
-  return <h1>Dating MERN App</h1>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 
 export default App;
