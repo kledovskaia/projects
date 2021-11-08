@@ -2,22 +2,52 @@ import { FC } from "react";
 import { Direction } from "../DatingCards/DatingCards";
 import { SwipeButtonsButton, SwipeButtonsContainer } from "./styles";
 
+import Replay from "@mui/icons-material/Replay";
+import Close from "@mui/icons-material/Close";
+import StarRate from "@mui/icons-material/StarRate";
+import Favorite from "@mui/icons-material/Favorite";
+import FlashOn from "@mui/icons-material/FlashOn";
+import IconButton from "@mui/material/IconButton";
+
 type Props = {
-  swipe: (dir: Direction) => Promise<void>;
+  approve: () => Promise<void>;
+  reject: () => Promise<void>;
   goBack: () => Promise<void>;
+  reset: () => Promise<void>;
+  favorite: () => Promise<void>;
+  report: () => Promise<void>;
   canSwipe: boolean;
   canGoBack: boolean;
 };
 
 export const SwipeButtons: FC<Props> = ({
-  swipe,
+  approve,
+  reject,
   goBack,
   canSwipe,
   canGoBack,
+  reset,
+  favorite,
+  report,
 }) => {
   return (
     <SwipeButtonsContainer>
-      <SwipeButtonsButton
+      <IconButton onClick={reject}>
+        <Close />
+      </IconButton>
+      <IconButton onClick={approve}>
+        <Favorite />
+      </IconButton>
+      <IconButton onClick={reset}>
+        <Replay />
+      </IconButton>
+      <IconButton onClick={report}>
+        <FlashOn />
+      </IconButton>
+      <IconButton onClick={favorite}>
+        <StarRate />
+      </IconButton>
+      {/* <SwipeButtonsButton
         // @ts-ignore
         style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
         onClick={() => swipe("left")}
@@ -37,7 +67,7 @@ export const SwipeButtons: FC<Props> = ({
         onClick={() => swipe("right")}
       >
         Swipe right!
-      </SwipeButtonsButton>
+      </SwipeButtonsButton> */}
     </SwipeButtonsContainer>
   );
 };

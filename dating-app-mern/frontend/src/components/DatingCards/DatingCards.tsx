@@ -85,6 +85,12 @@ export const DatingCards = () => {
     await childRefs[newIndex].current?.restoreCard();
   };
 
+  const approve = async () => {};
+  const reject = async () => {};
+  const reset = async () => {};
+  const favorite = async () => {};
+  const report = async () => {};
+
   return (
     <DatingCardsContainer>
       <DatingCardsTitle>React Tinder Card</DatingCardsTitle>
@@ -106,10 +112,14 @@ export const DatingCards = () => {
         ))}
       </DatingCardsInnerContainer>
       <SwipeButtons
-        swipe={swipe}
         goBack={goBack}
         canGoBack={canGoBack}
         canSwipe={canSwipe}
+        approve={approve}
+        reject={reject}
+        reset={reset}
+        favorite={favorite}
+        report={report}
       />
       <LastDirection lastDirection={lastDirection} />
     </DatingCardsContainer>
