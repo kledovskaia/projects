@@ -11,6 +11,7 @@ html {
 }
 
 body {
+  overflow: hidden;
 }
 
 img {
@@ -18,10 +19,15 @@ img {
   max-width: 100%;
 }
 
+.cardContainer {
+  min-height: 20rem;
+  min-width: 15rem;
+  margin: 1rem 0 2rem;
+}
 .datingCard {
   position: absolute;
-  width: 20rem;
-  height: 30rem;
+  width: 15rem;
+  height: 20rem;
   border-radius: 0.5rem;
 }
 .datingCard > div {
@@ -39,4 +45,8 @@ img {
   color: #fff;
   padding: 0.25em 1em;
   text-shadow: 0.1em 0.1em 0.05rem #333;
+}
+
+.datingCard > .swipeButtons {
+  margin-top: 35rem;
 }
