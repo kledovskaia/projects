@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
   left: 0;
   right: 0;
   padding: 1rem;
-  box-shadow: 0 0 0.5rem #999;
+  box-shadow: 0 0 0.25rem #999;
 `;
 export const LogoContainer = styled.div`
   flex-grow: 1;
