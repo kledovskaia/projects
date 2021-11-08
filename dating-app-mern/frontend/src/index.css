@@ -19,34 +19,9 @@ img {
   max-width: 100%;
 }
 
-.cardContainer {
-  min-height: 20rem;
-  min-width: 15rem;
-  margin: 1rem 0 2rem;
-}
 .datingCard {
   position: absolute;
   width: 15rem;
   height: 20rem;
   border-radius: 0.5rem;
-}
-.datingCard > div {
-  overflow: hidden;
-  border-radius: 0.5rem;
-  min-height: 100%;
-  background: url() center center / cover no-repeat;
-  display: flex;
-  align-items: flex-end;
-}
-
-.datingCard h3 {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-top-right-radius: 0.5em;
-  color: #fff;
-  padding: 0.25em 1em;
-  text-shadow: 0.1em 0.1em 0.05rem #333;
-}
-
-.datingCard > .swipeButtons {
-  margin-top: 35rem;
 }

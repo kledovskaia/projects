@@ -1,6 +1,14 @@
 import React, { useState, useMemo, useRef, RefObject } from "react";
 import TinderCard from "react-tinder-card";
-import { DatingCardsContainer } from "./styles";
+import { LastDirection } from "../LastDirection/LastDirection";
+import { SwipeButtons } from "../SwipeButtons/SwipeButtons";
+import {
+  DatingCardsContainer,
+  DatingCardsInnerContainer,
+  DatingCardsPerson,
+  DatingCardsPersonName,
+  DatingCardsTitle,
+} from "./styles";
 
 const db = [
   {
@@ -21,7 +29,7 @@ const db = [
   },
 ];
 
-type Direction = "left" | "right" | "up" | "down";
+export type Direction = "left" | "right" | "up" | "down";
 
 type ChildRef = {
   swipe(dir?: Direction): Promise<void>;
@@ -30,8 +38,7 @@ type ChildRef = {
 
 export const DatingCards = () => {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
-  const [lastDirection, setLastDirection] = useState<string>();
-  // used for outOfFrame closure
+  const [lastDirection, setLastDirection] = useState<Direction>();
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo<RefObject<ChildRef>[]>(
@@ -80,8 +87,8 @@ export const DatingCards = () => {
 
   return (
     <DatingCardsContainer>
-      <h1>React Tinder Card</h1>
-      <div className="cardContainer">
+      <DatingCardsTitle>React Tinder Card</DatingCardsTitle>
+      <DatingCardsInnerContainer>
         {db.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
@@ -90,47 +97,21 @@ export const DatingCards = () => {
             onSwipe={(dir) => swiped(dir, character.name, index)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
-            <div
+            <DatingCardsPerson
               style={{ backgroundImage: "url(" + character.url + ")" }}
-              className="card"
             >
-              <h3>{character.name}</h3>
-            </div>
+              <DatingCardsPersonName>{character.name}</DatingCardsPersonName>
+            </DatingCardsPerson>
           </TinderCard>
         ))}
-      </div>
-      <div className="buttons">
-        <button
-          // @ts-ignore
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("left")}
-        >
-          Swipe left!
-        </button>
-        <button
-          // @ts-ignore
-          style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
-          onClick={() => goBack()}
-        >
-          Undo swipe!
-        </button>
-        <button
-          // @ts-ignore
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("right")}
-        >
-          Swipe right!
-        </button>
-      </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h2>
-      ) : (
-        <h2 className="infoText">
-          Swipe a card or press a button to get Restore Card button visible!
-        </h2>
-      )}
+      </DatingCardsInnerContainer>
+      <SwipeButtons
+        swipe={swipe}
+        goBack={goBack}
+        canGoBack={canGoBack}
+        canSwipe={canSwipe}
+      />
+      <LastDirection lastDirection={lastDirection} />
     </DatingCardsContainer>
   );
 };
