@@ -13,7 +13,6 @@ type Props = {
   approve: () => Promise<void>;
   reject: () => Promise<void>;
   goBack: () => Promise<void>;
-  reset: () => Promise<void>;
   favorite: () => Promise<void>;
   report: () => Promise<void>;
   canSwipe: boolean;
@@ -26,7 +25,6 @@ export const SwipeButtons: FC<Props> = ({
   goBack,
   canSwipe,
   canGoBack,
-  reset,
   favorite,
   report,
 }) => {
@@ -38,14 +36,14 @@ export const SwipeButtons: FC<Props> = ({
       <IconButton onClick={approve}>
         <Favorite />
       </IconButton>
-      <IconButton onClick={reset}>
-        <Replay />
-      </IconButton>
       <IconButton onClick={report}>
         <FlashOn />
       </IconButton>
       <IconButton onClick={favorite}>
         <StarRate />
+      </IconButton>
+      <IconButton onClick={goBack}>
+        <Replay />
       </IconButton>
       {/* <SwipeButtonsButton
         // @ts-ignore

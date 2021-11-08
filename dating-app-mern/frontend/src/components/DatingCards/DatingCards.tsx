@@ -7,7 +7,6 @@ import {
   DatingCardsInnerContainer,
   DatingCardsPerson,
   DatingCardsPersonName,
-  DatingCardsTitle,
 } from "./styles";
 
 const db = [
@@ -63,6 +62,7 @@ export const DatingCards = () => {
     nameToDelete: string,
     index: number
   ) => {
+    if (direction === "up" || direction === "down") return;
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
@@ -85,15 +85,17 @@ export const DatingCards = () => {
     await childRefs[newIndex].current?.restoreCard();
   };
 
-  const approve = async () => {};
-  const reject = async () => {};
-  const reset = async () => {};
+  const approve = async () => {
+    await swipe("left");
+  };
+  const reject = async () => {
+    await swipe("right");
+  };
   const favorite = async () => {};
   const report = async () => {};
 
   return (
     <DatingCardsContainer>
-      <DatingCardsTitle>React Tinder Card</DatingCardsTitle>
       <DatingCardsInnerContainer>
         {db.map((character, index) => (
           <TinderCard
@@ -102,6 +104,7 @@ export const DatingCards = () => {
             key={character.name}
             onSwipe={(dir) => swiped(dir, character.name, index)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}
+            preventSwipe={["up", "down"]}
           >
             <DatingCardsPerson
               style={{ backgroundImage: "url(" + character.url + ")" }}
@@ -117,7 +120,6 @@ export const DatingCards = () => {
         canSwipe={canSwipe}
         approve={approve}
         reject={reject}
-        reset={reset}
         favorite={favorite}
         report={report}
       />

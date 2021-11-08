@@ -9,7 +9,6 @@ export const DatingCardsContainer = styled.section`
   align-items: center;
 `;
 
-export const DatingCardsTitle = styled.h1``;
 export const DatingCardsInnerContainer = styled.div`
   min-height: 20rem;
   min-width: 15rem;
