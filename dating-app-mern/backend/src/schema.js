@@ -8,4 +8,7 @@ export default gql`
   type Query {
     getAllCards: [Card]!
   }
+  type Mutation {
+    addCard(name: String!, imgUrl: String!): Card!
+  }
 `;

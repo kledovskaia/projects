@@ -1,1 +1,2 @@
-export const getAllCards = (root, args, { models }, info) => models.Card.find();
+export const getAllCards = async (_, __, { models }) =>
+  await models.Card.find();
