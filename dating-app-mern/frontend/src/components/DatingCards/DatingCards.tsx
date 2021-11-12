@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useRef, RefObject } from "react";
+import React, { useState, useMemo, useRef, RefObject, useEffect } from "react";
 import TinderCard from "react-tinder-card";
+import { useAppQuery } from "../../hooks/useAppQuery";
 import { LastDirection } from "../LastDirection/LastDirection";
 import { SwipeButtons } from "../SwipeButtons/SwipeButtons";
 import {
@@ -7,30 +8,31 @@ import {
   DatingCardsInnerContainer,
   DatingCardsPerson,
   DatingCardsPersonName,
+  DatingCardsPersonPhoto,
 } from "./styles";
 
-const db = [
-  {
-    name: "Random Guy",
-    imgUrl:
-      "https://images.unsplash.com/photo-1520409364224-63400afe26e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80",
-  },
-  {
-    name: "Another Guy",
-    imgUrl:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
-  },
-  {
-    name: "Random Girl",
-    imgUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
-  },
-  {
-    name: "Another Girl",
-    imgUrl:
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-  },
-];
+// const db = [
+//   {
+//     name: "Random Guy",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1520409364224-63400afe26e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80",
+//   },
+//   {
+//     name: "Another Guy",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
+//   },
+//   {
+//     name: "Random Girl",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80",
+//   },
+//   {
+//     name: "Another Girl",
+//     imgUrl:
+//       "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+//   },
+// ];
 
 export type Direction = "left" | "right" | "up" | "down";
 
@@ -40,13 +42,22 @@ type ChildRef = {
 };
 
 export const DatingCards = () => {
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const { data, loading, error } = useAppQuery<{
+    getAllCards: TCard[];
+  }>("GET_ALL_CARDS");
+  const [cards, setCards] = useState<TCard[]>(data?.getAllCards!);
+  useEffect(() => {
+    if (!data) return;
+    setCards(data.getAllCards);
+    setCurrentIndex(data.getAllCards.length - 1);
+  }, [data]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastDirection, setLastDirection] = useState<Direction>();
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo<RefObject<ChildRef>[]>(
     () =>
-      Array(db.length)
+      Array(cards?.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -57,7 +68,7 @@ export const DatingCards = () => {
     currentIndexRef.current = val;
   };
 
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = !!cards && currentIndex < cards.length - 1;
 
   const canSwipe = currentIndex >= 0;
 
@@ -77,7 +88,7 @@ export const DatingCards = () => {
   };
 
   const swipe = async (dir: Direction) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (cards && canSwipe && currentIndex < cards.length) {
       await childRefs[currentIndex].current?.swipe(dir);
     }
   };
@@ -101,7 +112,7 @@ export const DatingCards = () => {
   return (
     <DatingCardsContainer>
       <DatingCardsInnerContainer>
-        {db.map((character, index) => (
+        {cards?.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
             className="datingCard"
@@ -110,9 +121,14 @@ export const DatingCards = () => {
             onCardLeftScreen={() => outOfFrame(character.name, index)}
             preventSwipe={["up", "down"]}
           >
-            <DatingCardsPerson
-              style={{ backgroundImage: "url(" + character.imgUrl + ")" }}
-            >
+            <DatingCardsPerson>
+              <DatingCardsPersonPhoto
+                src={character.imgUrl}
+                onError={(e) => {
+                  e.currentTarget.src = "/images/default.jpg";
+                }}
+                alt=""
+              />
               <DatingCardsPersonName>{character.name}</DatingCardsPersonName>
             </DatingCardsPerson>
           </TinderCard>

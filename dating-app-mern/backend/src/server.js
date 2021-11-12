@@ -11,7 +11,6 @@ dotenv.config();
 
 const port = process.env.PORT || 8001;
 const host = process.env.DB_HOST;
-const root = process.env.ROOT;
 
 const app = express();
 app.use(cors());
@@ -26,7 +25,7 @@ const server = new ApolloServer({
     return { models };
   },
 });
-server.applyMiddleware({ app, path: root });
+server.applyMiddleware({ app, path: "/", cors: false });
 
 app.listen({ port }, () => {
   console.log(
