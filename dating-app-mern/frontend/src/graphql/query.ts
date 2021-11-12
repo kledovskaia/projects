@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
-export const GET_ALL_CARDS = gql`
+export const GET_USERS = gql`
   query {
-    getAllCards {
+    getUsers {
       name
       imgUrl
+      email
     }
   }
 `;

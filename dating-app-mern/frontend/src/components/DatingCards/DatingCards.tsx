@@ -43,13 +43,13 @@ type ChildRef = {
 
 export const DatingCards = () => {
   const { data, loading, error } = useAppQuery<{
-    getAllCards: TCard[];
-  }>("GET_ALL_CARDS");
-  const [cards, setCards] = useState<TCard[]>(data?.getAllCards!);
+    getUsers: TUser[];
+  }>("GET_USERS");
+  const [cards, setCards] = useState<TUser[]>(data?.getUsers!);
   useEffect(() => {
     if (!data) return;
-    setCards(data.getAllCards);
-    setCurrentIndex(data.getAllCards.length - 1);
+    setCards(data.getUsers);
+    setCurrentIndex(data.getUsers.length - 1);
   }, [data]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastDirection, setLastDirection] = useState<Direction>();
@@ -112,24 +112,18 @@ export const DatingCards = () => {
   return (
     <DatingCardsContainer>
       <DatingCardsInnerContainer>
-        {cards?.map((character, index) => (
+        {cards?.map((person, index) => (
           <TinderCard
             ref={childRefs[index]}
             className="datingCard"
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
+            key={person.name}
+            onSwipe={(dir) => swiped(dir, person.name, index)}
+            onCardLeftScreen={() => outOfFrame(person.name, index)}
             preventSwipe={["up", "down"]}
           >
             <DatingCardsPerson>
-              <DatingCardsPersonPhoto
-                src={character.imgUrl}
-                onError={(e) => {
-                  e.currentTarget.src = "/images/default.jpg";
-                }}
-                alt=""
-              />
-              <DatingCardsPersonName>{character.name}</DatingCardsPersonName>
+              <DatingCardsPersonPhoto src={person.imgUrl} alt="" />
+              <DatingCardsPersonName>{person.name}</DatingCardsPersonName>
             </DatingCardsPerson>
           </TinderCard>
         ))}
