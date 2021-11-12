@@ -5,7 +5,6 @@ export const GET_USERS = gql`
     getUsers {
       name
       imgUrl
-      email
     }
   }
 `;

@@ -1,5 +1,6 @@
-import { Forum, Person } from "@mui/icons-material";
+import { Forum, NotificationsActive, Person } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
 import {
   HeaderContainer,
   LogoAnimated,
@@ -10,16 +11,22 @@ import {
 export const Header = () => {
   return (
     <HeaderContainer>
-      <IconButton>
-        <Person />
-      </IconButton>
+      <Link to="/profile">
+        <IconButton>
+          <Person />
+        </IconButton>
+      </Link>
       <LogoContainer>
-        <LogoStatic src="/images/logo.png" alt="" />
-        {/* <LogoAnimated src="/images/logo.gif" alt="" /> */}
+        <Link to="/">
+          <LogoStatic src="/images/logo.png" alt="" />
+          {/* <LogoAnimated src="/images/logo.gif" alt="" /> */}
+        </Link>
       </LogoContainer>
-      <IconButton>
-        <Forum />
-      </IconButton>
+      <Link to="/matches">
+        <IconButton>
+          <NotificationsActive />
+        </IconButton>
+      </Link>
     </HeaderContainer>
   );
 };

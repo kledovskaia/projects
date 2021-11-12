@@ -2,6 +2,7 @@ import styled from "styled-components";
 import macro from "styled-components/macro";
 
 export const HeaderContainer = styled.header`
+  background-color: #fff;
   display: flex;
   align-items: center;
   position: fixed;

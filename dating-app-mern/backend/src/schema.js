@@ -1,16 +1,16 @@
 import { gql } from "apollo-server-express";
 
 export default gql`
-  type Card {
+  type User {
     name: String!
-    imgUrl: String!
+    email: String!
+    imgUrl: String
   }
   type Query {
-    getAllCards: [Card]!
+    getUsers: [User]!
   }
   type Mutation {
-    signIn(name: String!, password: String!): String!
-    addCard(name: String!, imgUrl: String!): Card!
-    signUp(name: String!, password: String!): String!
+    signIn(name: String, email: String, password: String!): String!
+    signUp(name: String!, email: String!, password: String!): String!
   }
 `;

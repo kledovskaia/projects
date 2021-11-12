@@ -2,13 +2,10 @@ import bcrypt from "bcrypt";
 import { AuthenticationError, ForbiddenError } from "apollo-server-errors";
 import { generateJWT } from "../jwt.js";
 
-export const addCard = (_, { name, imgUrl }, { models }) =>
-  models.Card.create({ name, imgUrl });
-
-export const signIn = async (_, { name, password }, { models }) => {
+export const signIn = async (_, { email, password }, { models }) => {
   try {
     const user = await models.User.findOne({
-      name,
+      email,
     });
     if (!user) throw new AuthenticationError("User Not Found");
     const valid = await bcrypt.compare(password, user.password);
@@ -20,12 +17,17 @@ export const signIn = async (_, { name, password }, { models }) => {
   }
 };
 
-export const signUp = async (_, { name, password }, { models }) => {
+export const signUp = async (_, { name, email, password }, { models }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const card = await models.Card.create({ name, imgUrl: undefined });
+    const found = await models.User.findOne({ email });
+    if (found)
+      throw new AuthenticationError(
+        `User with email "${email}" is already exist`
+      );
     const user = await models.User.create({
-      name: card.name,
+      name,
+      email,
       password: hashedPassword,
     });
     return generateJWT(user);
