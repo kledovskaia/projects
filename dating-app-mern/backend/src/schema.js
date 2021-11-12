@@ -9,6 +9,8 @@ export default gql`
     getAllCards: [Card]!
   }
   type Mutation {
+    signIn(name: String!, password: String!): String!
     addCard(name: String!, imgUrl: String!): Card!
+    signUp(name: String!, password: String!): String!
   }
 `;
