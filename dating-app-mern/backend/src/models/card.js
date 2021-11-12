@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const cardSchema = new Schema({
+const cardSchema = new mongoose.Schema({
   name: String,
   imgUrl: String,
 });
-export const Card = model("Card", cardSchema);
+export const Card = mongoose.model("Card", cardSchema);
