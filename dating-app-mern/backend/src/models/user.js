@@ -5,6 +5,10 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  _id: {
+    type: String,
+    require: true,
+  },
   email: {
     type: String,
     require: true,

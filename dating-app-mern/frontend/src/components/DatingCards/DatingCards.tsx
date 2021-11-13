@@ -116,7 +116,7 @@ export const DatingCards = () => {
           <TinderCard
             ref={childRefs[index]}
             className="datingCard"
-            key={person.name}
+            key={person._id}
             onSwipe={(dir) => swiped(dir, person.name, index)}
             onCardLeftScreen={() => outOfFrame(person.name, index)}
             preventSwipe={["up", "down"]}

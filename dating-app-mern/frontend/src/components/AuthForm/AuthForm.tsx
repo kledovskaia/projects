@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 
 type Props = {
-  title: string;
+  title: "Sign In" | "Sign Up";
   initialValues: {
     [key in string]: string;
   };
@@ -49,6 +49,7 @@ export const AuthForm: FC<Props> = ({
                     .join(" ")}
                 </AuthFormLabel>
                 <Field
+                  type={label.includes("password") ? "password" : "text"}
                   className={
                     errors[label] && touched[label]
                       ? "inputField inputField_error"

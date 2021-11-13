@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
-import { Link } from "react-router-dom";
+import { useAppMutation } from "../../hooks/useAppMutation";
 
 const initialValues = {
   name: "",
@@ -28,10 +28,18 @@ const validationSchema = Yup.object().shape({
 });
 
 export const SignUp = () => {
+  const [signUp, { loading, error }] = useAppMutation("SIGN_UP");
+
   const handleSubmit = (values: {
     [key in string]: string;
   }) => {
-    console.log(values);
+    signUp({
+      variables: {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      },
+    });
   };
 
   return (
