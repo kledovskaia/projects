@@ -8,8 +8,10 @@ import {
   AuthFormError,
   AuthFormGroup,
   AuthFormLabel,
+  AuthFormRedirect,
   AuthFormTitle,
 } from "./styles";
+import { Link } from "react-router-dom";
 
 type Props = {
   title: string;
@@ -69,5 +71,13 @@ export const AuthForm: FC<Props> = ({
         </Form>
       )}
     </Formik>
+    <AuthFormRedirect>
+      {title === "Sign In"
+        ? "Don't have an account?"
+        : "Already have an account?"}
+      <Link to={title === "Sign In" ? "/sign-up" : "/sign-in"}>
+        {title === "Sign In" ? "Sign Up" : "Sign In"}
+      </Link>
+    </AuthFormRedirect>
   </AuthFormContainer>
 );

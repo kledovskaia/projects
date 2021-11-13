@@ -1,7 +1,6 @@
-import { Fragment } from "react";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
+import { Link } from "react-router-dom";
 
 const initialValues = {
   name: "",

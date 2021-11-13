@@ -55,3 +55,14 @@ export const AuthFormButton = styled.button`
   border: 0.1rem solid rgb(110, 0, 92);
   border-radius: 0.25rem;
 `;
+
+export const AuthFormRedirect = styled.p`
+  padding: 1.5em 0 0;
+  text-align: center;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0 1em;
+  }
+`;
