@@ -6,21 +6,32 @@ import { App } from "./App";
 import {
   ApolloClient,
   ApolloProvider,
-  HttpLink,
+  createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
+import { setContext } from "apollo-link-context";
 import dotenv from "dotenv";
+import { AuthContextProvider } from "./context/Auth";
 dotenv.config();
 
 const uri = process.env.API_URI || "http://localhost:3000/";
 
-const httpLink = new HttpLink({
+const httpLink = createHttpLink({
   uri,
   credentials: "same-origin",
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("dating-app-token");
+  return {
+    ...headers,
+    Authentication: token || "",
+  };
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  // @ts-ignore
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   connectToDevTools: true,
 });
@@ -29,7 +40,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Router>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </Router>
     </ApolloProvider>
   </React.StrictMode>,

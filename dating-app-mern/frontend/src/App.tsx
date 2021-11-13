@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Routes, Route } from "react-router";
 import { Header } from "./components/Header/Header";
+import { AuthContext } from "./context/Auth";
 import { Main } from "./pages/Main/Main";
 import { Matches } from "./pages/Matches/Matches";
 import { Profile } from "./pages/Profile/Profile";

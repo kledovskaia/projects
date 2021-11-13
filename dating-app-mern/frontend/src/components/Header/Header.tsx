@@ -4,7 +4,9 @@ import {
   Person,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/Auth";
 import {
   HeaderContainer,
   LogoAnimated,
@@ -14,13 +16,17 @@ import {
 } from "./styles";
 
 export const Header = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <HeaderContainer>
-      <Link to="/profile">
-        <IconButton>
-          <Person />
-        </IconButton>
-      </Link>
+      {isAuthenticated ??
+        (isAuthenticated && (
+          <Link to="/profile">
+            <IconButton>
+              <Person />
+            </IconButton>
+          </Link>
+        ))}
       <LogoContainer>
         <Link to="/">
           <LogoInner>
@@ -29,14 +35,17 @@ export const Header = () => {
           </LogoInner>
         </Link>
       </LogoContainer>
-      <Link to="/matches">
-        <IconButton>
-          <Notifications />
-        </IconButton>
-        <IconButton>
-          <NotificationsActive className="notifications_active" />
-        </IconButton>
-      </Link>
+      {isAuthenticated ??
+        (isAuthenticated && (
+          <Link to="/matches">
+            <IconButton>
+              <Notifications />
+            </IconButton>
+            <IconButton>
+              <NotificationsActive className="notifications_active" />
+            </IconButton>
+          </Link>
+        ))}
     </HeaderContainer>
   );
 };
