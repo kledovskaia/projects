@@ -25,3 +25,17 @@ img {
   height: 20rem;
   border-radius: 0.5rem;
 }
+
+.inputField {
+  border: 0.1rem solid rgb(185, 185, 185);
+  border-radius: 0.25rem;
+  transition: border-color 0.2s;
+}
+
+.inputField_error {
+  border-color: rgb(255, 97, 97);
+}
+
+.notifications_active {
+  color: rgb(175, 0, 146);
+}

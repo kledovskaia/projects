@@ -2,8 +2,17 @@ import { FC, Fragment } from "react";
 import { Formik, Form, Field } from "formik";
 import { ObjectSchema } from "yup";
 import { ObjectShape } from "yup/lib/object";
+import {
+  AuthFormButton,
+  AuthFormContainer,
+  AuthFormError,
+  AuthFormGroup,
+  AuthFormLabel,
+  AuthFormTitle,
+} from "./styles";
 
 type Props = {
+  title: string;
   initialValues: {
     [key in string]: string;
   };
@@ -12,12 +21,13 @@ type Props = {
 };
 
 export const AuthForm: FC<Props> = ({
+  title,
   initialValues,
   validationSchema,
   handleSubmit,
 }) => (
-  <div>
-    <h1>Signup</h1>
+  <AuthFormContainer>
+    <AuthFormTitle>{title}</AuthFormTitle>
 
     <Formik
       initialValues={initialValues}
@@ -29,18 +39,35 @@ export const AuthForm: FC<Props> = ({
           {Object.keys(initialValues).map((key) => {
             const label = key as keyof typeof errors;
             return (
-              <Fragment key={label}>
-                <Field name={label} />
-                {errors[label] && touched[label] ? (
-                  <div>{errors[label]}</div>
-                ) : null}
-              </Fragment>
+              <AuthFormGroup key={label}>
+                <AuthFormLabel htmlFor={label}>
+                  {label
+                    .split(" ")
+                    .map((word) => word[0].toUpperCase() + word.slice(1))
+                    .join(" ")}
+                </AuthFormLabel>
+                <Field
+                  className={
+                    errors[label] && touched[label]
+                      ? "inputField inputField_error"
+                      : "inputField"
+                  }
+                  name={label}
+                />
+                <AuthFormError>
+                  {errors[label] && touched[label] ? (
+                    errors[label]
+                  ) : (
+                    <>&nbsp;</>
+                  )}
+                </AuthFormError>
+              </AuthFormGroup>
             );
           })}
 
-          <button type="submit">Submit</button>
+          <AuthFormButton type="submit">Submit</AuthFormButton>
         </Form>
       )}
     </Formik>
-  </div>
+  </AuthFormContainer>
 );

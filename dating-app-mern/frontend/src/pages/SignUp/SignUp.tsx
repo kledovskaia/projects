@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { AuthForm } from "../../components/AuthForm/AuthForm";
 
 const initialValues = {
   name: "",
@@ -9,7 +10,7 @@ const initialValues = {
   "repeat password": "",
 };
 
-const SignupSchema = Yup.object().shape({
+const validationSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
@@ -23,42 +24,23 @@ const SignupSchema = Yup.object().shape({
   "repeat password": Yup.string()
     // .min(8, "Too Short!")
     // .max(32, "Too Long!")
-    .required("Please Repeat Your Password")
-    .oneOf([Yup.ref("password"), null], "Passwords must match"),
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Please Repeat Your Password"),
 });
 
 export const SignUp = () => {
-  const handleSubmit = (values: typeof initialValues) => {
+  const handleSubmit = (values: {
+    [key in string]: string;
+  }) => {
     console.log(values);
   };
 
   return (
-    <div>
-      <h1>Signup</h1>
-
-      <Formik
-        initialValues={initialValues}
-        validationSchema={SignupSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ errors, touched }) => (
-          <Form>
-            {Object.keys(initialValues).map((key) => {
-              const label = key as keyof typeof errors;
-              return (
-                <Fragment key={label}>
-                  <Field name={label} />
-                  {errors[label] && touched[label] ? (
-                    <div>{errors[label]}</div>
-                  ) : null}
-                </Fragment>
-              );
-            })}
-
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <AuthForm
+      title="Sign Up"
+      validationSchema={validationSchema}
+      initialValues={initialValues}
+      handleSubmit={handleSubmit}
+    />
   );
 };

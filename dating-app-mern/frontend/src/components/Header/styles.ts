@@ -21,5 +21,31 @@ export const LogoContainer = styled.div`
     max-width: 2rem;
   }
 `;
-export const LogoStatic = styled.img``;
-export const LogoAnimated = styled.img``;
+
+export const LogoInner = styled.div`
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+
+  &:hover {
+    .static {
+      z-index: 0;
+      opacity: 0;
+    }
+    .animated {
+      z-index: 1;
+      opacity: 1;
+    }
+  }
+`;
+
+export const LogoStatic = styled.img`
+  position: absolute;
+  opacity: 1;
+  transition: opacity 0.1s;
+`;
+export const LogoAnimated = styled.img`
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s;
+`;

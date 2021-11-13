@@ -1,10 +1,15 @@
-import { Forum, NotificationsActive, Person } from "@mui/icons-material";
+import {
+  Notifications,
+  NotificationsActive,
+  Person,
+} from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import {
   HeaderContainer,
   LogoAnimated,
   LogoContainer,
+  LogoInner,
   LogoStatic,
 } from "./styles";
 
@@ -18,13 +23,18 @@ export const Header = () => {
       </Link>
       <LogoContainer>
         <Link to="/">
-          <LogoStatic src="/images/logo.png" alt="" />
-          {/* <LogoAnimated src="/images/logo.gif" alt="" /> */}
+          <LogoInner>
+            <LogoStatic className="static" src="/images/logo.png" alt="" />
+            <LogoAnimated className="animated" src="/images/logo.gif" alt="" />
+          </LogoInner>
         </Link>
       </LogoContainer>
       <Link to="/matches">
         <IconButton>
-          <NotificationsActive />
+          <Notifications />
+        </IconButton>
+        <IconButton>
+          <NotificationsActive className="notifications_active" />
         </IconButton>
       </Link>
     </HeaderContainer>
