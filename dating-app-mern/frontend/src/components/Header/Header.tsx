@@ -5,7 +5,7 @@ import {
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import {
   HeaderContainer,
@@ -17,6 +17,8 @@ import {
 
 export const Header = () => {
   const { isAuthenticated } = useContext(AuthContext);
+  const match = useMatch("/");
+
   return (
     <HeaderContainer>
       {isAuthenticated ??
@@ -30,8 +32,16 @@ export const Header = () => {
       <LogoContainer>
         <Link to="/">
           <LogoInner>
-            <LogoStatic className="static" src="/images/logo.png" alt="" />
-            <LogoAnimated className="animated" src="/images/logo.gif" alt="" />
+            <LogoStatic
+              className={!match ? "static" : ""}
+              src="/images/logo.png"
+              alt=""
+            />
+            <LogoAnimated
+              className={!match ? "animated" : ""}
+              src="/images/logo.gif"
+              alt=""
+            />
           </LogoInner>
         </Link>
       </LogoContainer>
