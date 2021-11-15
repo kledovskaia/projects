@@ -48,12 +48,21 @@ export const AuthFormError = styled.p`
 
 export const AuthFormButton = styled.button`
   cursor: pointer;
-  padding: 0.75em;
-  color: #fff;
-  font-weight: bold;
-  background-color: rgb(175, 0, 146);
-  border: 0.1rem solid rgb(110, 0, 92);
+  display: block;
+  padding: 0.65em;
   border-radius: 0.25rem;
+  color: #fff;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0.03em 0.03em #000;
+  background-color: #fb4929;
+  border: 0.1rem solid #f72f19;
+  transition: background-color 0.1s;
+
+  &:hover {
+    background-color: #f72f19;
+  }
 `;
 
 export const AuthFormRedirect = styled.p`
