@@ -46,11 +46,13 @@ export const DatingCards = () => {
     getUsers: TUser[];
   }>("GET_USERS");
   const [cards, setCards] = useState<TUser[]>(data?.getUsers!);
+
   useEffect(() => {
     if (!data) return;
     setCards(data.getUsers);
     setCurrentIndex(data.getUsers.length - 1);
   }, [data]);
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [lastDirection, setLastDirection] = useState<Direction>();
   const currentIndexRef = useRef(currentIndex);

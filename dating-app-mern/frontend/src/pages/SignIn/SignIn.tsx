@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import * as Yup from "yup";
 import { AuthForm } from "../../components/AuthForm/AuthForm";
+import { AuthContext } from "../../context/Auth";
 import { useAppMutation } from "../../hooks/useAppMutation";
 
 const initialValues = {
@@ -16,7 +18,12 @@ const validationSchema = Yup.object().shape({
 });
 
 export const SignIn = () => {
-  const [signIn, { loading, error }] = useAppMutation("SIGN_IN");
+  const { login } = useContext(AuthContext);
+  const [signIn, { loading, error }] = useAppMutation("SIGN_IN", {
+    onCompleted: ({ signIn: token }: { signIn: string }) => {
+      login(token);
+    },
+  });
 
   const handleSubmit = (values: {
     [key in string]: string;

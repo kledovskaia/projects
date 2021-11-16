@@ -21,14 +21,13 @@ export const Header = () => {
 
   return (
     <HeaderContainer>
-      {isAuthenticated ??
-        (isAuthenticated && (
-          <Link to="/profile">
-            <IconButton>
-              <Person />
-            </IconButton>
-          </Link>
-        ))}
+      {isAuthenticated !== null && isAuthenticated && (
+        <Link to="/profile">
+          <IconButton>
+            <Person />
+          </IconButton>
+        </Link>
+      )}
       <LogoContainer>
         <Link to="/">
           <LogoInner>
@@ -45,17 +44,16 @@ export const Header = () => {
           </LogoInner>
         </Link>
       </LogoContainer>
-      {isAuthenticated ??
-        (isAuthenticated && (
-          <Link to="/matches">
-            <IconButton>
-              <Notifications />
-            </IconButton>
-            <IconButton>
-              <NotificationsActive className="notifications_active" />
-            </IconButton>
-          </Link>
-        ))}
+      {isAuthenticated !== null && isAuthenticated && (
+        <Link to="/matches">
+          <IconButton>
+            <Notifications />
+          </IconButton>
+          <IconButton>
+            <NotificationsActive className="notifications_active" />
+          </IconButton>
+        </Link>
+      )}
     </HeaderContainer>
   );
 };

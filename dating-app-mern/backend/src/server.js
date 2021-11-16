@@ -13,10 +13,10 @@ dotenv.config();
 const port = process.env.PORT || 8001;
 const host = process.env.DB_HOST;
 
-const getUser = (token) => {
+const getUser = async (token) => {
   if (!token) return;
   try {
-    return validateJWT(token);
+    return await validateJWT(token);
   } catch {
     throw new Error("Session is Invalid");
   }
@@ -31,9 +31,9 @@ db.connect(host);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
+  context: async ({ req }) => {
     const token = req.headers.authorization;
-    const user = getUser(token);
+    const user = await getUser(token);
     return { models, user };
   },
 });

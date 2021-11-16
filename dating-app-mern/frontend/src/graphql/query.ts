@@ -9,3 +9,14 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const GET_MY_INFO = gql`
+  query {
+    getMyInfo {
+      _id
+      name
+      imgUrl
+      email
+    }
+  }
+`;

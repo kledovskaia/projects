@@ -13,7 +13,7 @@ export const signIn = async (_, { email, password }, { models }) => {
     return generateJWT(user);
   } catch (error) {
     console.log(error);
-    throw new AuthenticationError("Authentication Failed");
+    throw new AuthenticationError(error);
   }
 };
 
@@ -33,6 +33,6 @@ export const signUp = async (_, { name, email, password }, { models }) => {
     return generateJWT(user);
   } catch (error) {
     console.log(error);
-    throw new AuthenticationError("Error Creating Account");
+    throw new AuthenticationError(error);
   }
 };

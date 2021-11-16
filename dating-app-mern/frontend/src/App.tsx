@@ -19,31 +19,35 @@ const protectedFromAuthenticated = {
 };
 
 export const App = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, data } = useContext(AuthContext);
 
   return (
     <>
       <Header />
-      <Routes>
-        {Object.entries({
-          ...protectedFromUnauthenticated,
-          ...protectedFromAuthenticated,
-        }).map(([path, Component]) => {
-          let Element = Component;
-          if (
-            (path in protectedFromAuthenticated && !!isAuthenticated) ||
-            (path in protectedFromUnauthenticated && !isAuthenticated)
-          ) {
-            Element = () => <Navigate to="/" />;
-          }
-          return <Route key={path} path={path} element={<Element />} />;
-        })}
-        <Route
-          path="/"
-          element={isAuthenticated ? <Main /> : <UnauthenticatedCTA />}
-        />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      {isAuthenticated !== null && (
+        <Routes>
+          {Object.entries({
+            ...protectedFromUnauthenticated,
+            ...protectedFromAuthenticated,
+          }).map(([path, Component]) => {
+            let Element = Component;
+            if (
+              (path in protectedFromAuthenticated && !!isAuthenticated) ||
+              (path in protectedFromUnauthenticated && !isAuthenticated)
+            ) {
+              Element = () => <Navigate to="/" />;
+            }
+            return <Route key={path} path={path} element={<Element />} />;
+          })}
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? data && <Main /> : <UnauthenticatedCTA />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      )}
     </>
   );
 };
