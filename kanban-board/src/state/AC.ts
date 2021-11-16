@@ -1,10 +1,6 @@
-export const moveList = (args: { draggedId: string; hoverId: string }) => ({
-  type: "MOVE_LIST" as const,
-  payload: args,
-});
-export const moveTask = (args: { draggedId: string; hoverId: string }) => ({
-  type: "MOVE_TASK" as const,
-  payload: args,
+export const setDragItem = (item: TDragItem) => ({
+  type: "SET_DRAG_ITEM" as const,
+  payload: item,
 });
 
 export const addTask = (args: {

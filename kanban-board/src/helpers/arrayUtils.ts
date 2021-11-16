@@ -1,4 +1,4 @@
-export const moveItem = <T>(array: T[], from: number, to: number) => {
+export const reorder = <T>(array: T[], from: number, to: number) => {
   const copy = [...array];
   const item = copy[from];
   copy.splice(from, 1);

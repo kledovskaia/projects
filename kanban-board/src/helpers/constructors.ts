@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 export class List implements TList {
-  taskIds = [];
+  tasks = [] as TTask[];
   id = uuidv4();
   constructor(public title: string) {}
 }
