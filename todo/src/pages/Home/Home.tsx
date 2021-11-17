@@ -14,9 +14,9 @@ export const Home = () => {
       <ToggleTodoModal
         onClick={toggleAddTodo}
         onKeyDown={(event) => event.key === "Enter" && toggleAddTodo()}
-      >
-        Add
-      </ToggleTodoModal>
+        aria-label="Add New Task"
+        aria-haspopup
+      />
     </>
   )
 }

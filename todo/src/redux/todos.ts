@@ -1,3 +1,4 @@
+import { v4 } from "uuid"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState = {
@@ -10,17 +11,20 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<TTodo["content"]>) => {
-      state.todos.push(new Todo(action.payload))
+      state.todos.push(createTodoObject(action.payload))
     },
     remove: (state, action: PayloadAction<TTodo["id"]>) => {
       const index = state.todos.findIndex((todo) => todo.id === action.payload)
       if (index === -1) return
       state.todos.splice(index, 1)
     },
-    markAsDone: (state, action: PayloadAction<TTodo["id"]>) => {
+    toggleDone: (state, action: PayloadAction<TTodo["id"]>) => {
       const index = state.todos.findIndex((todo) => todo.id === action.payload)
       if (index === -1) return
-      state.todos[index].done = true
+      state.todos.splice(index, 1, {
+        ...state.todos[index],
+        done: !state.todos[index].done,
+      })
     },
     changeContent: (
       state,
@@ -56,15 +60,12 @@ const todosSlice = createSlice({
   },
 })
 
-class Todo implements TTodo {
-  id: string
-  done = false
-  createdAt: Date
-  constructor(public content: string) {
-    this.id = "1"
-    this.createdAt = new Date()
-  }
-}
+const createTodoObject = (content: TTodo["content"]): TTodo => ({
+  id: v4(),
+  content,
+  timestamp: Date.now(),
+  done: false,
+})
 
 export const todosActions = todosSlice.actions
 export default todosSlice.reducer
