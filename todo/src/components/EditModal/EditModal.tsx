@@ -4,9 +4,9 @@ import { EditModeContext } from "../../context/editMode"
 import { TodoForm } from "../TodoForm/TodoForm"
 
 export const EditModal = () => {
-  const { isEditMode, todoOnEdit } = useContext(EditModeContext)
+  const { todoOnEdit } = useContext(EditModeContext)
 
-  return isEditMode && todoOnEdit
+  return todoOnEdit
     ? ReactDOM.createPortal(<TodoForm />, document.getElementById("modal")!)
     : null
 }

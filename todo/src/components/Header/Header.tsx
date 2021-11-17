@@ -10,13 +10,10 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <Title>Сегодня</Title>
-      {!hasTodos && todoOnEdit && (
-        <ToggleEditMode onClick={toggleEditMode}>Отменить</ToggleEditMode>
-      )}
       {hasTodos && (
         <ToggleEditMode onClick={toggleEditMode}>
-          {!isEditMode && "Править"}
           {isEditMode && "Отменить"}
+          {!isEditMode && "Править"}
         </ToggleEditMode>
       )}
     </HeaderContainer>

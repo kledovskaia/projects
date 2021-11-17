@@ -6,7 +6,7 @@ type EditModeContextProps = {
   isEditMode: boolean
   todoOnEdit: TTodo | {} | null
   toggleEditMode: () => void
-  setTodoOnEdit: (todo: TTodo) => void
+  setTodoOnEdit: (todo: TTodo | null) => void
   toggleAddTodo: () => void
 }
 
@@ -15,21 +15,18 @@ export const EditModeContext = createContext({} as EditModeContextProps)
 export const EditModeContextProvider: FC = ({ children }) => {
   const [isEditMode, setIsEditMode] = useState(false)
   const todoOnEdit = useAppSelector((state) => state.todos.todoOnEdit)
+  const hasTodos = useAppSelector((state) => !!state.todos.todos.length)
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (!hasTodos) setIsEditMode(false)
+  }, [hasTodos])
 
   useEffect(() => {
     return () => {
       dispatch(todosActions.setTodoOnEdit(null))
     }
   }, [])
-
-  useEffect(() => {
-    if (todoOnEdit) setIsEditMode(true)
-  }, [todoOnEdit])
-
-  useEffect(() => {
-    if (!isEditMode && todoOnEdit) dispatch(todosActions.setTodoOnEdit(null))
-  }, [isEditMode])
 
   const toggleEditMode = () => {
     setIsEditMode((state) => !state)

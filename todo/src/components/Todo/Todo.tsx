@@ -2,6 +2,7 @@ import { FC, useContext } from "react"
 import { EditModeContext } from "../../context/editMode"
 import { useAppDispatch } from "../../hooks/redux"
 import { todosActions } from "../../redux/todos"
+import { Minus } from "../icons/Minus"
 import { RemoveTask, Task, TaskContent, ToggleTask } from "./styles"
 
 type Props = {
@@ -27,28 +28,14 @@ export const Todo: FC<Props> = ({ todo }) => {
   return (
     <Task>
       {isEditMode ? (
-        <RemoveTask
-          onClick={removeTask}
-          onKeyDown={(e) => e.key === "Enter" && removeTask()}
-          aria-label="Remove Task"
-        />
+        <RemoveTask onClick={removeTask}>
+          <Minus />
+        </RemoveTask>
       ) : (
-        <ToggleTask
-          onClick={toggleDone}
-          onKeyDown={(e) => e.key === "Enter" && toggleDone()}
-          aria-label={`Mark Task as ${todo.done ? "undone" : "done"}`}
-        />
+        <ToggleTask dataDone={todo.done} onClick={toggleDone} />
       )}
       <TaskContent
         onClick={isEditMode ? handleSelect : toggleDone}
-        onKeyDown={(e) =>
-          e.key === "Enter" && isEditMode ? handleSelect() : toggleDone()
-        }
-        aria-label={
-          isEditMode
-            ? `Mark Task as ${todo.done ? "undone" : "done"}`
-            : "Edit Task Content"
-        }
         dataDone={todo.done}
       >
         {todo.content}
