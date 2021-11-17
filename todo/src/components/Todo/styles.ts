@@ -12,6 +12,7 @@ type TaskDone = {
   dataDone: boolean
 }
 export const TaskContent = styled.button<TaskDone>`
+  display: block;
   color: ${({ dataDone }) => (dataDone ? "#666" : "#000")};
   text-align: left;
   padding: 0.25em;
@@ -20,6 +21,8 @@ export const TaskContent = styled.button<TaskDone>`
   background-color: transparent;
   cursor: pointer;
   transition: color 0.2s;
+  word-wrap: break-word;
+  max-width: 40rem;
 `
 
 export const ToggleTask = styled.button<TaskDone>`
