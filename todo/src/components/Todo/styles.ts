@@ -22,7 +22,7 @@ export const TaskContent = styled.button<TaskDone>`
   cursor: pointer;
   transition: color 0.2s;
   word-wrap: break-word;
-  max-width: 40rem;
+  max-width: 37rem;
 `
 
 export const ToggleTask = styled.button<TaskDone>`

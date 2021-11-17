@@ -13,7 +13,7 @@ export const ToggleTodoModal = styled.button`
   justify-content: center;
   vertical-align: middle;
 
-  position: absolute;
+  position: fixed;
   bottom: 5vw;
   right: 5vw;
   box-shadow: 0 0 4rem #999;
