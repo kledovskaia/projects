@@ -6,15 +6,11 @@ import {
   Age,
   Header,
   Info,
-  Input,
   Logout,
   Name,
   Photo,
   PhotoContainer,
   ProfileContainer,
-  ProfileInfoForm,
-  Submit,
-  TextArea,
   UploadPhoto,
 } from "./styles"
 

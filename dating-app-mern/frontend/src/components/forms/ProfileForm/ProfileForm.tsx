@@ -10,6 +10,8 @@ import {
 } from "../styles"
 import { AuthContext } from "../../../context/Auth"
 import { validateImgUrl } from "../../../helpers/validateImgUrl"
+import { useAppMutation } from "../../../hooks/useAppMutation"
+import { GET_MY_INFO } from "../../../graphql/query"
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -29,20 +31,18 @@ const validationSchema = Yup.object().shape({
 export const ProfileForm = () => {
   const { data } = useContext(AuthContext)
   const [state, setState] = useState<TUser>(null!)
+  const [updateProfile, { loading, error }] = useAppMutation("UPDATE_PROFILE", {
+    refetchQueries: [{ query: GET_MY_INFO }],
+  })
 
   useEffect(() => {
     if (data)
       setState({
-        _id: data._id,
         name: data.name,
         email: data.email,
-        imgUrl: data.imgUrl,
+        imgUrl: data.imgUrl || "",
       })
   }, [data])
-
-  const handleSubmit = (values: typeof state) => {
-    console.log(values)
-  }
 
   return (
     state && (
@@ -50,39 +50,41 @@ export const ProfileForm = () => {
         <Formik
           initialValues={state}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={(values) =>
+            updateProfile({
+              variables: values,
+            })
+          }
         >
           {({ errors, touched }) => (
             <Form>
-              {Object.keys(state)
-                .filter((key) => key !== "_id")
-                .map((key) => {
-                  const label = key as keyof typeof errors
-                  return (
-                    <FormGroup key={label}>
-                      <FormLabel htmlFor={label}>
-                        {label === "imgUrl"
-                          ? "Image Url"
-                          : label[0].toUpperCase() + label.slice(1)}
-                      </FormLabel>
-                      <Field
-                        className={
-                          errors[label] && touched[label]
-                            ? "inputField inputField_error"
-                            : "inputField"
-                        }
-                        name={label}
-                      />
-                      <FormError>
-                        {errors[label] && touched[label] ? (
-                          errors[label]
-                        ) : (
-                          <>&nbsp;</>
-                        )}
-                      </FormError>
-                    </FormGroup>
-                  )
-                })}
+              {Object.keys(state).map((key) => {
+                const label = key as keyof typeof errors
+                return (
+                  <FormGroup key={label}>
+                    <FormLabel htmlFor={label}>
+                      {label === "imgUrl"
+                        ? "Image Url"
+                        : label[0].toUpperCase() + label.slice(1)}
+                    </FormLabel>
+                    <Field
+                      className={
+                        errors[label] && touched[label]
+                          ? "inputField inputField_error"
+                          : "inputField"
+                      }
+                      name={label}
+                    />
+                    <FormError>
+                      {errors[label] && touched[label] ? (
+                        errors[label]
+                      ) : (
+                        <>&nbsp;</>
+                      )}
+                    </FormError>
+                  </FormGroup>
+                )
+              })}
 
               <FormButton type="submit">Update Profile</FormButton>
             </Form>
