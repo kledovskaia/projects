@@ -1,26 +1,26 @@
-import { FC, Fragment } from "react";
-import { Formik, Form, Field } from "formik";
-import { ObjectSchema } from "yup";
-import { ObjectShape } from "yup/lib/object";
+import { FC } from "react"
+import { Formik, Form, Field } from "formik"
+import { ObjectSchema } from "yup"
+import { ObjectShape } from "yup/lib/object"
 import {
-  AuthFormButton,
-  AuthFormContainer,
-  AuthFormError,
-  AuthFormGroup,
-  AuthFormLabel,
-  AuthFormRedirect,
-  AuthFormTitle,
-} from "./styles";
-import { Link } from "react-router-dom";
+  FormButton,
+  FormContainer,
+  FormError,
+  FormGroup,
+  FormLabel,
+  FormRedirect,
+  FormTitle,
+} from "../styles"
+import { Link } from "react-router-dom"
 
 type Props = {
-  title: "Sign In" | "Sign Up";
+  title: "Sign In" | "Sign Up"
   initialValues: {
-    [key in string]: string;
-  };
-  validationSchema: ObjectSchema<ObjectShape, Props["initialValues"]>;
-  handleSubmit: (values: Props["initialValues"]) => void;
-};
+    [key in string]: string
+  }
+  validationSchema: ObjectSchema<ObjectShape, Props["initialValues"]>
+  handleSubmit: (values: Props["initialValues"]) => void
+}
 
 export const AuthForm: FC<Props> = ({
   title,
@@ -28,8 +28,8 @@ export const AuthForm: FC<Props> = ({
   validationSchema,
   handleSubmit,
 }) => (
-  <AuthFormContainer>
-    <AuthFormTitle>{title}</AuthFormTitle>
+  <FormContainer>
+    <FormTitle>{title}</FormTitle>
 
     <Formik
       initialValues={initialValues}
@@ -39,15 +39,15 @@ export const AuthForm: FC<Props> = ({
       {({ errors, touched }) => (
         <Form>
           {Object.keys(initialValues).map((key) => {
-            const label = key as keyof typeof errors;
+            const label = key as keyof typeof errors
             return (
-              <AuthFormGroup key={label}>
-                <AuthFormLabel htmlFor={label}>
+              <FormGroup key={label}>
+                <FormLabel htmlFor={label}>
                   {label
                     .split(" ")
                     .map((word) => word[0].toUpperCase() + word.slice(1))
                     .join(" ")}
-                </AuthFormLabel>
+                </FormLabel>
                 <Field
                   type={label.includes("password") ? "password" : "text"}
                   className={
@@ -57,28 +57,28 @@ export const AuthForm: FC<Props> = ({
                   }
                   name={label}
                 />
-                <AuthFormError>
+                <FormError>
                   {errors[label] && touched[label] ? (
                     errors[label]
                   ) : (
                     <>&nbsp;</>
                   )}
-                </AuthFormError>
-              </AuthFormGroup>
-            );
+                </FormError>
+              </FormGroup>
+            )
           })}
 
-          <AuthFormButton type="submit">Submit</AuthFormButton>
+          <FormButton type="submit">Submit</FormButton>
         </Form>
       )}
     </Formik>
-    <AuthFormRedirect>
+    <FormRedirect>
       {title === "Sign In"
         ? "Don't have an account?"
         : "Already have an account?"}
       <Link to={title === "Sign In" ? "/sign-up" : "/sign-in"}>
         {title === "Sign In" ? "Sign Up" : "Sign In"}
       </Link>
-    </AuthFormRedirect>
-  </AuthFormContainer>
-);
+    </FormRedirect>
+  </FormContainer>
+)

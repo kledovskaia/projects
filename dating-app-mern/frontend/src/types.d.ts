@@ -1,5 +1,6 @@
 type TUser = {
-  _id: string;
-  name: string;
-  imgUrl: string;
-};
+  _id: string
+  name: string
+  imgUrl: string
+  email?: string
+}

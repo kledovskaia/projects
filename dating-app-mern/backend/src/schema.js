@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from "apollo-server-express"
 
 export default gql`
   type User {
@@ -14,5 +14,6 @@ export default gql`
   type Mutation {
     signIn(email: String!, password: String!): String!
     signUp(name: String!, email: String!, password: String!): String!
+    updateProfile(name: String, email: String, imgUrl: String): User
   }
-`;
+`

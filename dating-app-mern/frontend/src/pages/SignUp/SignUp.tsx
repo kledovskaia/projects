@@ -1,15 +1,15 @@
-import { useContext } from "react";
-import * as Yup from "yup";
-import { AuthForm } from "../../components/AuthForm/AuthForm";
-import { AuthContext } from "../../context/Auth";
-import { useAppMutation } from "../../hooks/useAppMutation";
+import { useContext } from "react"
+import * as Yup from "yup"
+import { AuthForm } from "../../components/forms/AuthForm/AuthForm"
+import { AuthContext } from "../../context/Auth"
+import { useAppMutation } from "../../hooks/useAppMutation"
 
 const initialValues = {
   name: "",
   email: "",
   password: "",
   "repeat password": "",
-};
+}
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -27,18 +27,18 @@ const validationSchema = Yup.object().shape({
     // .max(32, "Too Long!")
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Please Repeat Your Password"),
-});
+})
 
 export const SignUp = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext)
   const [signUp, { loading, error }] = useAppMutation("SIGN_UP", {
     onCompleted: ({ signUp: token }: { signUp: string }) => {
-      login(token);
+      login(token)
     },
-  });
+  })
 
   const handleSubmit = (values: {
-    [key in string]: string;
+    [key in string]: string
   }) => {
     signUp({
       variables: {
@@ -46,8 +46,8 @@ export const SignUp = () => {
         email: values.email,
         password: values.password,
       },
-    });
-  };
+    })
+  }
 
   return (
     <AuthForm
@@ -56,5 +56,5 @@ export const SignUp = () => {
       initialValues={initialValues}
       handleSubmit={handleSubmit}
     />
-  );
-};
+  )
+}

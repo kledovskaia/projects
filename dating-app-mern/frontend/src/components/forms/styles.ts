@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import macro from "styled-components/macro";
+import styled from "styled-components"
+import macro from "styled-components/macro"
 
-export const AuthFormContainer = styled.section`
+export const FormContainer = styled.section`
+  padding: 2em 0;
   max-width: 25rem;
   width: 95vw;
   margin: 0 auto;
 
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -19,14 +20,14 @@ export const AuthFormContainer = styled.section`
       padding: 0.5em;
     }
   }
-`;
+`
 
-export const AuthFormTitle = styled.h1`
+export const FormTitle = styled.h1`
   text-align: center;
   padding: 0.5em;
-`;
+`
 
-export const AuthFormGroup = styled.div`
+export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 0.25rem;
@@ -34,19 +35,19 @@ export const AuthFormGroup = styled.div`
   &:last-of-type {
     margin-bottom: 2rem;
   }
-`;
+`
 
-export const AuthFormLabel = styled.label`
+export const FormLabel = styled.label`
   padding: 0.25em 0;
   color: #333;
-`;
+`
 
-export const AuthFormError = styled.p`
+export const FormError = styled.p`
   color: red;
   font-size: 0.9rem;
-`;
+`
 
-export const AuthFormButton = styled.button`
+export const FormButton = styled.button`
   cursor: pointer;
   display: block;
   padding: 0.65em;
@@ -63,9 +64,9 @@ export const AuthFormButton = styled.button`
   &:hover {
     background-color: #f72f19;
   }
-`;
+`
 
-export const AuthFormRedirect = styled.p`
+export const FormRedirect = styled.p`
   padding: 1.5em 0 0;
   text-align: center;
 
@@ -74,4 +75,4 @@ export const AuthFormRedirect = styled.p`
     text-decoration: none;
     padding: 0 1em;
   }
-`;
+`
