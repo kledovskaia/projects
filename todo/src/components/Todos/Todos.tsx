@@ -1,19 +1,7 @@
+import { isToday } from "../../helpers/isToday"
 import { useAppSelector } from "../../hooks/redux"
 import { Todo } from "../Todo/Todo"
 import { Message, TodosContainer, TodosList } from "./styles"
-
-export const isToday = (date: number) => {
-  const now = new Date()
-  const midnigth = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    0,
-    0,
-    0
-  )
-  return midnigth.getTime() < date
-}
 
 export const Todos = () => {
   const todos = useAppSelector((state) =>
