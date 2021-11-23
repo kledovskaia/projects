@@ -16,10 +16,10 @@ import { GET_MY_INFO } from "../../../graphql/query"
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
   name: Yup.string().required("Name is Required"),
-  age: Yup.number()
-    .min(18, "You must be at least 18")
-    .max(70, "We don't think it's a good idea for your health")
-    .required("Age is Required"),
+  // age: Yup.number()
+  //   .min(18, "You must be at least 18")
+  //   .max(70, "We don't think it's a good idea for your health")
+  //   .required("Age is Required"),
   about: Yup.string(),
   imgUrl: Yup.string().test(
     "is-img-url-valid",
