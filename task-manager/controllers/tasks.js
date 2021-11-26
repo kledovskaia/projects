@@ -19,8 +19,8 @@ export const getOne = async (req, res) => {
 }
 export const createOne = async (req, res) => {
   try {
-    const { content } = req.body
-    const task = await Task.create({ content })
+    const { name } = req.body
+    const task = await Task.create({ name })
     if (!task) throw new Error()
     res.status(200).json({ task })
   } catch (error) {
