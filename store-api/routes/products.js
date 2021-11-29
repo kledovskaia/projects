@@ -9,3 +9,5 @@ router
   .get(products.getOne)
   .patch(products.updateOne)
   .delete(products.deleteOne)
+
+  export { router as products}

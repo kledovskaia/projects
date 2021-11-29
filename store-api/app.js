@@ -9,6 +9,8 @@ import { connectDB } from './db/connect.js'
 const app = express()
 const port = process.env.PORT || 3001
 
+app.get('/', (req, res) => res.send("<h1>Hello World!</h1>"))
+
 app.use(notFound)
 app.use(errorHandler)
 app.use('/api/v1/products', products)
