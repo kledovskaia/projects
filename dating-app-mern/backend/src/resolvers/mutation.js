@@ -5,9 +5,10 @@ import { generateJWT } from "../jwt.js"
 export const updateProfile = async (_, args, { models, user }) => {
   if (!user) throw new ForbiddenError("Please Sign In to perform this action")
   try {
-    const isEmailTaken = !!(await models.User.findOne({
-      email: args.email,
-    }))
+    const isEmailTaken =
+      !(await models.User.findOne({
+        email: args.email,
+      }))?._id === user.id
     if (isEmailTaken) throw new ForbiddenError("This Email is Already Taken")
     user = await models.User.findOneAndUpdate(
       { _id: user.id },
