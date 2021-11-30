@@ -7,6 +7,7 @@ const btnDOM = document.querySelector('#data')
 const tokenDOM = document.querySelector('.token')
 
 formDOM.addEventListener('submit', async (e) => {
+  localStorage.removeItem('token')
   formAlertDOM.classList.remove('text-success')
   tokenDOM.classList.remove('text-success')
 
@@ -30,7 +31,7 @@ formDOM.addEventListener('submit', async (e) => {
     tokenDOM.classList.add('text-success')
   } catch (error) {
     formAlertDOM.style.display = 'block'
-    formAlertDOM.textContent = error.response.data.msg
+    formAlertDOM.textContent = error?.response?.data?.msg || error
     localStorage.removeItem('token')
     resultDOM.innerHTML = ''
     tokenDOM.textContent = 'no token present'
@@ -50,11 +51,9 @@ btnDOM.addEventListener('click', async () => {
       },
     })
     resultDOM.innerHTML = `<h5>${data.msg}</h5><p>${data.secret}</p>`
-
-    data.secret
   } catch (error) {
     localStorage.removeItem('token')
-    resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`
+    resultDOM.innerHTML = `<p>${error?.response?.data?.msg || error}</p>`
   }
 })
 
