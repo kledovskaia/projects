@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const { engine } = require('express-handlebars')
+const fortune = require('./lib/fortune')
 require('dotenv').config()
 
 const app = express()
@@ -13,14 +14,15 @@ app.engine(
   })
 )
 app.set('view engine', 'handlebars')
-app.set('views', path.resolve(__dirname, './views'))
+
+app.use(express.static(__dirname + '/public'))
 
 app.get('/', (req, res) => {
   res.render('home')
 })
 
 app.get('/about', (req, res) => {
-  res.render('about')
+  res.render('about', { fortune: fortune.getRandomFortune() })
 })
 
 app.use((req, res) => {
