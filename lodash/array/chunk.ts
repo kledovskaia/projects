@@ -8,3 +8,9 @@ export const chunk: TChunk = (array, size = 1) => {
   }
   return res;
 }
+
+console.log(chunk(['a', 'b', 'c', 'd'], 2))
+// => [['a', 'b'], ['c', 'd']]
+ 
+console.log(chunk(['a', 'b', 'c', 'd'], 3))
+// => [['a', 'b', 'c'], ['d']]
