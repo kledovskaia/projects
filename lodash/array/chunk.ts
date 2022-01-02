@@ -1,5 +1,5 @@
 type TChunk = <T>(arr: T[], size?: number) => T[][];
-export const chunk: TChunk = (array, size = 1) => {
+const chunkFor: TChunk = (array, size = 1) => {
   const resLength = Math.ceil(array.length / size);
   let res = new Array(resLength);
   for (let i = 0, s = 0; i < resLength; i++, s += size) {
@@ -9,8 +9,10 @@ export const chunk: TChunk = (array, size = 1) => {
   return res;
 }
 
-console.log(chunk(['a', 'b', 'c', 'd'], 2))
+console.log(chunkFor(['a', 'b', 'c', 'd'], 2))
 // => [['a', 'b'], ['c', 'd']]
  
-console.log(chunk(['a', 'b', 'c', 'd'], 3))
+console.log(chunkFor(['a', 'b', 'c', 'd'], 3))
 // => [['a', 'b', 'c'], ['d']]
+
+export { chunkFor as chunk }
