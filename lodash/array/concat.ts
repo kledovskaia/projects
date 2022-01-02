@@ -12,6 +12,9 @@ const concatFor: TConcat = (array, ...values) => {
 
 var array = [1];
 var other = concatFor(array, [2], [3], [[4]]);
+
+// TODO: *Error*
+// var other = concatFor(array, 2, [3], [[4]]);
  
 console.log(other);
 // => [1, 2, 3, [4]]
