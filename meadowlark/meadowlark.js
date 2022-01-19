@@ -15,7 +15,7 @@ app.engine(
 )
 app.set('view engine', 'handlebars')
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.resolve(__dirname + '/public')))
 
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
