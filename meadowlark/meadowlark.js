@@ -1,8 +1,8 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const { engine } = require('express-handlebars')
-const fortune = require('./lib/fortune')
-require('dotenv').config()
+const handlers = require('./lib/handlers')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -17,23 +17,11 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', (req, res) => {
-  res.render('home')
-})
+app.get('/', handlers.home)
+app.get('/about', handlers.about)
 
-app.get('/about', (req, res) => {
-  res.render('about', { fortune: fortune.getRandomFortune() })
-})
-
-app.use((req, res) => {
-  res.status(404)
-  res.render('404')
-})
-app.use((err, req, res, next) => {
-  console.log(err.message)
-  res.status(500)
-  res.render('500')
-})
+app.use(handlers.notFound)
+app.use(handlers.serverError)
 
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`)
