@@ -8,6 +8,8 @@ module.exports.notFound = (req, res) => {
   res.status(404);
   res.render('404');
 };
+
+// eslint-disable-next-line no-unused-vars
 module.exports.serverError = (err, req, res, next) => {
   console.log(err.message);
   res.status(500);

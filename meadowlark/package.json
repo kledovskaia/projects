@@ -5,7 +5,8 @@
   "main": "meadowlark.js",
   "scripts": {
     "start": "nodemon meadowlark.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint meadowlark.js lib"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "express-handlebars": "^6.0.2"
   },
   "devDependencies": {
+    "eslint": "^8.8.0",
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "portfinder": "^1.0.28",
