@@ -13,8 +13,18 @@ module.exports.newsletterProcess = (req, res) => {
   console.log('Email:', req.body.email);
   res.redirect(303, '/newsletter/thank-you');
 };
-module.exports.newsletterThankYou = (req, res) =>
-  res.render('newsletter-thank-you');
+module.exports.thankYou = (req, res) => res.render('thank-you');
+
+module.exports.vacationPhotoContest = (req, res) => {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  res.render('vacation-photo', { year, month });
+};
+module.exports.vacationPhotoContestProcess = (req, res, fields, files) => {
+  console.log('Fields:', fields);
+  console.log('Files:', files);
+  res.redirect(303, '/contest/vacation-photo/thank-you');
+};
 
 module.exports.notFound = (req, res) => {
   res.status(404);
